@@ -1,8 +1,8 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
-module.exports = new Sequelize('test', 'postgres', 'toor', {
-    host: 'localhost',
-    dialect: 'postgres',
+module.exports = new Sequelize("test", "postgres", "toor", {
+    host: "localhost",
+    dialect: "postgres",
     operatorsAliases: false,
 
     pool: {

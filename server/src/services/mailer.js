@@ -1,12 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 
 const sendRegisterMail = async (RegisterMail) => {
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
             user: process.env.EMAIL.toString(),  // eslint-disable-line
             pass: process.env.PASSWORD.toString(),  // eslint-disable-line
@@ -15,11 +15,11 @@ const sendRegisterMail = async (RegisterMail) => {
 
 
     const mailOptions = {
-        from: 'discipulus.service@gmail.com',
+        from: "discipulus.service@gmail.com",
         to: RegisterMail,
-        subject: 'Welcome to Discipulus',
-        text: 'You have successful created account.',
-        html: '<p>You have successful created account.</p>'
+        subject: "Welcome to Discipulus",
+        text: "You have successful created account.",
+        html: "<p>You have successful created account.</p>"
     };
 
 
@@ -27,7 +27,7 @@ const sendRegisterMail = async (RegisterMail) => {
         if (error) {
             return console.log(error);
         }
-        return console.log('email sent');
+        return console.log("email sent");
     });
 
 };

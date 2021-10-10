@@ -1,5 +1,5 @@
-const express = require('express');
-const usersController = require('../controllers/usersController');
+const express = require("express");
+const usersController = require("../controllers/usersController");
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ const router = express.Router();
  *      '200':
  *        description: A successful response
  */
-router.get('/register', usersController.registerIndex);
+router.get("/register", usersController.registerIndex);
 
 /**
  * @swagger
@@ -24,7 +24,7 @@ router.get('/register', usersController.registerIndex);
  *      '200':
  *        description: A successful response
  */
-router.post('/register', usersController.registerPost);
+router.post("/register", usersController.registerPost);
 
 /**
  * @swagger
@@ -35,7 +35,7 @@ router.post('/register', usersController.registerPost);
  *      '200':
  *        description: A successful response
  */
-router.get('/login', usersController.loginIndex);
+router.get("/login", usersController.loginIndex);
 
 /**
  * @swagger
@@ -46,7 +46,7 @@ router.get('/login', usersController.loginIndex);
  *      '200':
  *        description: A successful response
  */
-router.get('/logout', usersController.logout);
+router.get("/logout", usersController.logout);
 
 /**
  * @swagger
@@ -57,7 +57,7 @@ router.get('/logout', usersController.logout);
  *      '200':
  *        description: A successful response
  */
-router.post('/login', usersController.loginPost);
+router.post("/login", usersController.loginPost);
 
 /**
  * @swagger
@@ -68,7 +68,7 @@ router.post('/login', usersController.loginPost);
  *      '200':
  *        description: A successful response
  */
-router.get('/allUsers', usersController.allUsers);
+router.get("/allUsers", usersController.allUsers);
 
 
 module.exports = router;
