@@ -18,7 +18,7 @@ db.authenticate()
 
 // variables
 const app = express();
-const port = process.env.PORT || 3000;  // eslint-disable-line
+const port = process.env.PORT || 4000;  // eslint-disable-line
 const swaggerOptions = {
     swaggerDefinition: {
         info: {
