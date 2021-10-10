@@ -2,9 +2,9 @@ name: ESLint-backend
 
 on:
   push:
-    branches: [ master, develop, fix/workflow-linter ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ master, develop, fix/workflow-linter ]
+    branches: [ master, develop ]
 
 jobs:
   lint:
