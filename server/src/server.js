@@ -9,12 +9,12 @@ const aboutRoutes =  require("./routes/aboutRoutes");
 const usersRoutes = require("./routes/userRoutes");
 
 // database
-const db = require('./config/database');
+const db = require("./config/database");
 
 // Test DB
 db.authenticate()
-    .then(() => console.log('[SERVER] Database connected...'))
-    .catch(err => console.log('Error: ' + err))
+    .then(() => console.log("[SERVER] Database connected..."))
+    .catch(err => console.log("Error: " + err))
 
 // variables
 const app = express();
@@ -40,7 +40,7 @@ app.use(express.json()); // all data send to api will be able to access as a jso
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/", homeRoutes);
 app.use("/about", aboutRoutes);
-app.use('/users', usersRoutes);
+app.use("/users", usersRoutes);
 app.use((req, res) => {
     res.status(404).send("404 Error");
 });
