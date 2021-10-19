@@ -13,7 +13,7 @@ const router = express.Router();
  *      '200':
  *        description: A successful response
  */
- router.get('/', examsController.allExamsGet);
+ router.get("/", examsController.allExamsGet);
 
 
  /**
@@ -25,7 +25,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
- router.post('/create', examsController.examCreatePost);
+ router.post("/create", examsController.examCreatePost);
  
  
  /**
@@ -37,7 +37,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
- router.get('/:uuid', examsController.ExamGet);
+ router.get("/:uuid", examsController.ExamGet);
  
  
  module.exports = router;

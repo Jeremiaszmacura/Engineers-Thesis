@@ -32,14 +32,14 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(express.urlencoded( { extended: false })); // takes all url encoded data and parse to object, which we can use in request object (req.body)
 app.use(express.json()); // all data send to api will be able to access as a json
 app.use((req, res, next) => { // CORS enabled
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Origin", "*");
     res.header(
-        'Access-Control-Allow-Headers', 
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        "Access-Control-Allow-Headers", 
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods',
-        'PUT, POST, PATCH, DELETE, GET'
+    if (req.method === "OPTIONS") {
+        res.header("Access-Control-Allow-Methods",
+        "PUT, POST, PATCH, DELETE, GET"
         );
         return res.status(200).json({});
     }
@@ -47,7 +47,7 @@ app.use((req, res, next) => { // CORS enabled
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/users", usersRoutes);
-app.use('/exams', examsRoutes);
+app.use("/exams", examsRoutes);
 app.use((req, res) => {
     res.status(404).send("404 Error");
 });

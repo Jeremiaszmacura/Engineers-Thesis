@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-const { sequelize, User } = require('../models');
+const { sequelize, User } = require("../models");
 
 
 const registerPost = async (req, res) => {
@@ -46,7 +46,7 @@ const allUsersGet = async (req, res) => {
         return res.json(users);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Getting all users ocured error' });
+        return res.status(500).json({ error: "Getting all users ocured error" });
     }
 };
 
@@ -60,7 +60,7 @@ const UserGet = async (req, res) => {
         return res.json(user);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Getting all users ocured error' });
+        return res.status(500).json({ error: "Getting all users ocured error" });
     }
 };
 
