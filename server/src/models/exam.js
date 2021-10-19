@@ -3,51 +3,52 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Exam extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Exam }) {
-      this.hasMany(Exam, { foreignKey: 'userId' });
+    static associate({ User }) {
+      // this - referes to Exam class there
+      this.belongsTo(User, { foreignKey: 'userId' });
     }
 
     toJSON() { // each time JSON is returned
-      return { ...this.get(), id: undefined, password: undefined }
+      return { ...this.get(), id: undefined }
     }
   };
-  User.init(
+  Exam.init(
     {
     uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    email: {
+    startsAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    endsAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    authToken: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    role: {
+    accessCode: {
       type: DataTypes.STRING,
       allowNull: false
     },
   }, {
     sequelize,
-    tableName: 'users',
-    modelName: 'User',
+    tableName: 'exams',
+    modelName: 'Exam',
   }
   );
-  return User;
+  return Exam;
 };
