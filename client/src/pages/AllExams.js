@@ -9,7 +9,11 @@ const AllExamsPage = () => {
     useEffect(() => {
         setIsLoading(true); 
         fetch(
-            'http://localhost:4000/exams'
+            'http://localhost:4000/exams',
+            {
+                method: 'GET',
+                credentials: 'include'
+            }
         ).then((response) => {
             return response.json();
         }).then((data) => {

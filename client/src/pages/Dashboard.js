@@ -1,7 +1,7 @@
-const DashboardPase = () => {
+const DashboardPage = () => {
     return (
         <div>Dashboard Page</div>
     );
 }
 
-export default DashboardPase;
+export default DashboardPage;

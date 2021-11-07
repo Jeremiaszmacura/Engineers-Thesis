@@ -7,13 +7,18 @@ const convertDateFormatHtmlToDb = (date) => {
 };
 
 
+const generateRundomString = () => {
+    return (Math.random() + 1).toString(36).substring(4);
+}
+
+
 const allExamsGet = async (req, res) => {
     try {
-        const exam = await Exam.findAll();
+        const exam = await Exam.findAll({ include: 'user' });
         return res.json(exam);
     } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -27,14 +32,14 @@ const examCreatePost = async (req, res) => {
             startsAt: convertDateFormatHtmlToDb(req.body.startsAt),
             endsAt: convertDateFormatHtmlToDb(req.body.endsAt),
             description: req.body.description,
-            accessCode: (Math.random() + 1).toString(36).substring(4),
+            accessCode: generateRundomString(),
             userId: user.id 
         });
 
         return res.json(exam);
     } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -45,7 +50,36 @@ const ExamGet = async (req, res) => {
         return res.json(exam);
     } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'Something went wrong' })
+    }
+};
+
+
+const ExamDelete = async (req, res) => {
+    try {
+        const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
+        await exam.destroy();
+        return res.json({ message: 'Exam deleted.' });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    }
+};
+
+
+const ExamUpdate = async (req, res) => {
+    try {
+        const { title, startsAt, endsAt, description } = req.body
+        const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
+        if (title) { exam.title = title; }
+        if (startsAt) { exam.startsAt = startsAt; }
+        if (endsAt) { exam.endsAt = endsAt; }
+        if (description) { exam.description = description; }
+        await exam.save();
+        return res.json(exam);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -53,5 +87,7 @@ const ExamGet = async (req, res) => {
 module.exports = {
     allExamsGet,
     examCreatePost,
-    ExamGet
+    ExamGet,
+    ExamDelete,
+    ExamUpdate
 };

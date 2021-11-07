@@ -1,5 +1,6 @@
 const express = require("express");
 const examsController = require("../controllers/examsController");
+const { authenticateUser } = require('../middleware/authentication');
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const router = express.Router();
  *      '200':
  *        description: A successful response
  */
- router.get("/", examsController.allExamsGet);
+ router.get("/", authenticateUser, examsController.allExamsGet);
 
 
  /**
@@ -25,7 +26,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
- router.post("/create", examsController.examCreatePost);
+ router.post("/create", authenticateUser, examsController.examCreatePost);
  
  
  /**
@@ -37,7 +38,31 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
- router.get("/:uuid", examsController.ExamGet);
+ router.get("/:uuid", authenticateUser, examsController.ExamGet);
+
+
+ /**
+  * @swagger
+  * /exams/:uuid':
+  *  delete:
+  *    description: Delete Exam passing uuid in url params
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+  router.delete("/:uuid", authenticateUser, examsController.ExamDelete);
+
+
+   /**
+  * @swagger
+  * /exams/:uuid':
+  *  put:
+  *    description: Update Exam passing uuid in url params
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+    router.put("/:uuid", authenticateUser, examsController.ExamUpdate);
  
  
  module.exports = router;

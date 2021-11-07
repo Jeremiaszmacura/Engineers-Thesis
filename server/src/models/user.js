@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ Exam }) {
-      this.hasMany(Exam, { foreignKey: 'userId' });
+      this.hasMany(Exam, { 
+        foreignKey: 'userId', 
+        as: 'exams', 
+        onDelete: 'cascade', 
+        hooks:true 
+      });
     }
 
     toJSON() { // each time JSON is returned
@@ -25,23 +30,39 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: "User must have a name." },
+        notEmpty: { msg: "Name must not be empty." }
+      }
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: "User must have an email." },
+        notEmpty: { msg: "Email must not be empty." },
+        isEmail: { msg: "Must be a valid email address." }
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: "User must have a password." },
+        notEmpty: { msg: "Password must not be empty." }
+      }
     },
-    authToken: {
-      type: DataTypes.STRING,
-      allowNull: false
+    refreshToken: {
+      type: DataTypes.STRING
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: "User must have a role." },
+        notEmpty: { msg: "Role must not be empty." }
+      }
     },
   }, {
     sequelize,

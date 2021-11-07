@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Response, { foreignKey: 'responseId' });
-      this.belongsTo(models.Question, { foreignKey: 'questionId' });
+      this.belongsTo(models.Response, { foreignKey: 'responseId', as: 'response' });
+      this.belongsTo(models.Question, { foreignKey: 'questionId', as: 'question' });
     }
 
     toJSON() { // each time JSON is returned
-      return { ...this.get(), id: undefined }
+      return { ...this.get(), id: undefined, responseId: undefined, questionId: undefined }
     }
   };
   Answer.init(

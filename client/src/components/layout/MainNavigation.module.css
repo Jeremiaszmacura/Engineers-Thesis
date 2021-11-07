@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    height: 5rem;
+    height: 4.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9,7 +9,7 @@
   }
   
   .logo {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: white;
     font-weight: bold;
   }
@@ -28,7 +28,7 @@
   
   .header a {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #fdfdfd;
   }
   

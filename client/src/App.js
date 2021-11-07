@@ -5,6 +5,8 @@ import CreateExamPage from './pages/CreateExam';
 import DashboardPase from './pages/Dashboard';
 import HelpPage from './pages/Help';
 import AllExamsPage from './pages/AllExams';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 import Layout from './components/layout/Layout';
 
 const App = () => {
@@ -25,6 +27,12 @@ const App = () => {
                 </Route>
                 <Route path='/all-exams'>
                     <AllExamsPage />
+                </Route>
+                <Route path='/login'>
+                    <LoginPage />
+                </Route>
+                <Route path='/register'>
+                    <RegisterPage />
                 </Route>
             </Switch>
         </Layout>

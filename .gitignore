@@ -1,4 +1,5 @@
 .idea/
 server/node_modules/
 server/.env
-server/src/config/config.json
+server/src/config/config.jsongit
+server/postgres-data/
