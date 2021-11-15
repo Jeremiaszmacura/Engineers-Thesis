@@ -28,7 +28,6 @@ const AllExamsPage = () => {
         ).then((response) => {
             return response.json();
         }).then((data) => {
-            console.log(data)
             const exams = [];
 
             for (const key in data) {
