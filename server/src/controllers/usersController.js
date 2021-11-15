@@ -44,56 +44,40 @@ const registerPost = async (req, res) => {
         return res.json(user);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
 
 const loginPost = async (req, res, next) => {
-    // try {
-    //     const user = await User.findOne({ where: { email: req.body.email } });
-    //     if (!user) {
-    //         return res.json("No such an email registered.");
-    //     }
-    //     bcrypt.compare(req.body.password, user.password, (err, result) => {
-    //         if (err) return res.status(500).json({ error: 'Something went wrong.' });
-    //         if (result) {
-    //             const accessToken = generateAccessToken(user);
-    //             const refreshToken = generateRefreshToken(user);
-    //             updateRefreshToken(user, refreshToken);
-    //             return res.json({ user: user, accessToken: accessToken, refreshToken: refreshToken });
-    //         }
-    //         return res.json("Wrong password.");
-    //     });
-    // } catch (err) {
-    //     console.log(err);
-    //     return res.status(500).json({ error: 'Something went wrong.' });
-    // }
-    console.log('logging...')
     passport.authenticate("local", (err, user, info) => {
         if (err) throw err;
-        if (!user) res.json("No User Exists");
+        if (!user) res.json("Wrong username or password");
         else {
           req.logIn(user, (err) => {
             if (err) throw err;
-            res.json("Successfully Authenticated");
-            console.log(req.user);
+            res.json({
+                message: "Successfully Authenticated",
+                role: user.role,
+                user: {
+                    name: user.name,
+                    email: user.email
+                }
+            });
           });
         }
       })(req, res, next);
 };
 
 
-const logoutPost = async (req, res) => {
-    try {
-        const user = await User.findOne({ where: { uuid: req.userUuid } });
-        user.refreshToken = null;
-        await user.save();
-        return res.json(user);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
-    }
+const checkIfLoggedIn = (req, res) => {
+    return res.json({ loggedIn: true })
+};
+
+
+const logoutGet = (req, res) => {
+    req.logout();
+    res.status(200).json("Successfully logged out")
 };
 
 
@@ -103,7 +87,7 @@ const allUsersGet = async (req, res) => {
         return res.json(users);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -118,7 +102,7 @@ const UserGet = async (req, res) => {
         return res.json(user);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -127,10 +111,10 @@ const UserDelete = async (req, res) => {
     try {
         const user = await User.findOne({ where: { uuid: req.params.uuid } });
         await user.destroy();
-        return res.json({ message: 'User deleted.' });
+        return res.json({ message: 'User deleted' });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
@@ -147,18 +131,18 @@ const UserUpdate = async (req, res) => {
         return res.json(user);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: 'Something went wrong.' });
+        return res.status(500).json({ error: 'Something went wrong' });
     }
 };
 
 
 const refreshTokenPost = async (req, res) => {
     const refreshToken = req.body.refreshToken;
-    if (refreshToken == null) return res.status(401).json("Unauthorized.");
+    if (refreshToken == null) return res.status(401).json("Unauthorized");
     const user = await User.findOne({ where: { refreshToken: refreshToken } });
-    if (!user) return res.status(403).json("Forbidden. No such refresh token.");
+    if (!user) return res.status(403).json("Forbidden. No such refresh token");
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, tokenUser) => {
-        if (err) return res.status(403).json("Forbidden. Invalid refresh token.");
+        if (err) return res.status(403).json("Forbidden. Invalid refresh token");
         const accessToken = generateAccessToken(tokenUser.userUuid);
         return res.json({ accessToken: accessToken });
     });
@@ -168,10 +152,11 @@ const refreshTokenPost = async (req, res) => {
 module.exports = {
     registerPost,
     loginPost,
-    logoutPost,
+    logoutGet,
     allUsersGet,
     UserGet,
     UserDelete,
     UserUpdate,
-    refreshTokenPost
+    refreshTokenPost,
+    checkIfLoggedIn
 };

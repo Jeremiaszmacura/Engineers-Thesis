@@ -31,26 +31,26 @@ router.post("/login", usersController.loginPost);
 
 /**
  * @swagger
- * /users/logout':
+ * /users/checkIfLoggedIn':
  *  post:
+ *    description: Check if user is logged in. Returns true/null
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+ router.post("/checkIfLoggedIn", authenticateUser, usersController.checkIfLoggedIn);
+
+
+/**
+ * @swagger
+ * /users/logout':
+ *  get:
  *    description: Logout User
  *    responses:
  *      '200':
  *        description: A successful response
  */
- router.post("/logout", authenticateUser, usersController.logoutPost);
-
-
-/**
- * @swagger
- * /users/token':
- *  post:
- *    description: Generate AccessToken with RefreshToken
- *    responses:
- *      '200':
- *        description: A successful response
- */
-   router.post("/token", usersController.refreshTokenPost);
+ router.get("/logout", authenticateUser, usersController.logoutGet);
 
 
 /**

@@ -5,7 +5,7 @@ const localStrategy = require("passport-local").Strategy;
 
 module.exports = (passport) => {
     passport.use(
-        new localStrategy ( async (email, password, done) => {
+        new localStrategy ( { usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
             try {
                 console.log('hi')
                 const user = await User.findOne({ where: { email: email } });
@@ -28,13 +28,13 @@ module.exports = (passport) => {
         done(null, user.email);
     });
 
-    passport.deserializeUser((email, done) => {
-        console.log('deserializeUser');
-        User.findOne({ email: email }, (err, user) => {
-            const userInformation = {
-                email: user.email,
-            };
-            done(err, userInformation);
-        });
+    passport.deserializeUser( async (email, done) => {
+        try {
+            const user = await User.findOne({ where: { email: email } });
+            done(null, user);
+        } catch (err) {
+            console.log(err);
+            done(err, false, { message: "Something went wrong." });
+        }
     });
 };

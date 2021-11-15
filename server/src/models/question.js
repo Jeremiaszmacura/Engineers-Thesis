@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE', 
         hooks:true 
       });
+      this.hasMany(models.ValiableAnswer, { 
+        foreignKey: 'questionId', 
+        as: 'valiableanswers', 
+        onDelete: 'CASCADE', 
+        hooks:true 
+      });
     }
 
     toJSON() { // each time JSON is returned
@@ -36,15 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     type: { 
       type: DataTypes.STRING,
       allowNull: false
-    },
-    valiableAnswers: { 
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    answer: { 
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    }
   }, {
     sequelize,
     tableName: 'questions',

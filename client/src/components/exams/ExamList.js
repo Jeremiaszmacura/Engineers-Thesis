@@ -7,7 +7,8 @@ const ExamList = (props) => {
             {props.exams.map((exam) => (
                 <ExamItem 
                 key={exam.id} 
-                id={exam.id} 
+                id={exam.id}
+                uuid={exam.uuid} 
                 title={exam.title}
                 startsAt={exam.startsAt}
                 endsAt={exam.endsAt}

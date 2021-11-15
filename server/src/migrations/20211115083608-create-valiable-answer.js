@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('questions', {
+    await queryInterface.createTable('valiableanswers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,19 +12,19 @@ module.exports = {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4
       },
-      question:{ 
+      answer: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      type: { 
-        type: DataTypes.STRING,
+      isCorrect: {
+        type: DataTypes.BOOLEAN,
         allowNull: false
       },
-      examId: {
+      questionId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'exams',
+          model: 'questions',
           key: 'id'
         }
       },
@@ -39,6 +39,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, DataTypes) => {
-    await queryInterface.dropTable('questions');
+    await queryInterface.dropTable('valiableanswers');
   }
 };

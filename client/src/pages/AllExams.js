@@ -6,6 +6,17 @@ const AllExamsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedExams, setLoadedExams] = useState([]);
 
+    const prepareDateTimeFormat = (exams) => {
+        exams.forEach((exam) => {
+            exam.startsAt = "date: " + exam.startsAt.replaceAll('-', '.')
+            exam.startsAt = exam.startsAt.replaceAll('T', ', time: ')
+            exam.startsAt = exam.startsAt.replaceAll('.000Z', '')
+            exam.endsAt = "date: " + exam.startsAt.replaceAll('-', '.')
+            exam.endsAt = exam.startsAt.replaceAll('T', ', time: ')
+            exam.endsAt = exam.startsAt.replaceAll('.000Z', '')
+        });
+    };
+
     useEffect(() => {
         setIsLoading(true); 
         fetch(
@@ -17,6 +28,7 @@ const AllExamsPage = () => {
         ).then((response) => {
             return response.json();
         }).then((data) => {
+            console.log(data)
             const exams = [];
 
             for (const key in data) {
@@ -29,6 +41,7 @@ const AllExamsPage = () => {
             }
 
             setIsLoading(false);
+            prepareDateTimeFormat(exams)
             setLoadedExams(exams);
         });
     }, []);

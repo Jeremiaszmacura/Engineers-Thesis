@@ -17,6 +17,18 @@ const router = express.Router();
  router.get("/", authenticateUser, examsController.allExamsGet);
 
 
+   /**
+  * @swagger
+  * /exams/accessCode':
+  *  post:
+  *    description: Post accessCode and Get Exam with it's questions
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+    router.post("/accessCode", examsController.ExamAndQuestionsByAccessCodeGet);
+
+
  /**
   * @swagger
   * /exams/create':
@@ -27,7 +39,7 @@ const router = express.Router();
   *        description: A successful response
   */
  router.post("/create", authenticateUser, examsController.examCreatePost);
- 
+
  
  /**
   * @swagger
@@ -62,8 +74,8 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
-    router.put("/:uuid", authenticateUser, examsController.ExamUpdate);
- 
+  router.put("/:uuid", authenticateUser, examsController.ExamUpdate);
+
  
  module.exports = router;
  

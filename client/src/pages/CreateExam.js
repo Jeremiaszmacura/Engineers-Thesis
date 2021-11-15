@@ -13,7 +13,8 @@ const CreateExamPage = () => {
                 body: JSON.stringify(examData),
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                credentials: 'include'
             }
         ).then(() => {
             history.replace('/');
