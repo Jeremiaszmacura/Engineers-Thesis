@@ -1,5 +1,5 @@
 // IMPORT AND CONFIGURE ENV VARIABLES
-require('dotenv').config({path: '../.env'});
+require("dotenv").config({path: "../.env"});
 
 // IMPORT EXTERNAL LIBRARIES
 const express = require("express");
@@ -54,7 +54,7 @@ app.use(session({
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./middleware/passportConfig')(passport);
+require("./middleware/passportConfig")(passport);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/users", usersRoutes);
 app.use("/exams", examsRoutes);
