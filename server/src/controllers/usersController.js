@@ -3,9 +3,6 @@ require('dotenv').config();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 passportLocal = require("passport-local").Strategy;
-const jwt = require('jsonwebtoken');
-
-// require('../middleware/passportConfig')(passport);
 
 const { User } = require("../models");
 
@@ -16,21 +13,6 @@ const generateAccessToken = (user) => {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1200s' }
         );
-};
-
-
-const generateRefreshToken = (user) => {
-    return jwt.sign(
-        { userUuid: user.uuid, isAuth: "true", role: user.role }, 
-        process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '525600s' }
-        );
-};
-
-
-const updateRefreshToken = async (user, refreshToken) => {
-    user.refreshToken = refreshToken;
-    await user.save();
 };
 
 
@@ -67,6 +49,12 @@ const loginPost = async (req, res, next) => {
           });
         }
       })(req, res, next);
+};
+
+
+const changePassword = (req, res) => {
+    console.log("change pass backend");
+    console.log(req.body);
 };
 
 
@@ -136,19 +124,6 @@ const UserUpdate = async (req, res) => {
 };
 
 
-const refreshTokenPost = async (req, res) => {
-    const refreshToken = req.body.refreshToken;
-    if (refreshToken == null) return res.status(401).json("Unauthorized");
-    const user = await User.findOne({ where: { refreshToken: refreshToken } });
-    if (!user) return res.status(403).json("Forbidden. No such refresh token");
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, tokenUser) => {
-        if (err) return res.status(403).json("Forbidden. Invalid refresh token");
-        const accessToken = generateAccessToken(tokenUser.userUuid);
-        return res.json({ accessToken: accessToken });
-    });
-};
-
-
 module.exports = {
     registerPost,
     loginPost,
@@ -157,6 +132,6 @@ module.exports = {
     UserGet,
     UserDelete,
     UserUpdate,
-    refreshTokenPost,
-    checkIfLoggedIn
+    checkIfLoggedIn,
+    changePassword
 };

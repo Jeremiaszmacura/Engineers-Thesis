@@ -43,6 +43,18 @@ router.post("/login", usersController.loginPost);
 
 /**
  * @swagger
+ * /users/changePassword':
+ *  post:
+ *    description: Change Password of current logged in user
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+ router.post("/changePassword", authenticateUser, usersController.changePassword);
+
+
+/**
+ * @swagger
  * /users/logout':
  *  get:
  *    description: Logout User

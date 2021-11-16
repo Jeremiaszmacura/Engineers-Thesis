@@ -10,14 +10,57 @@ const DashboardPage = () => {
     const { user } = useContext(UserContext);
     const { admin } = useContext(AdminContext);
 
-    const [changePassword, setChangePassword] = useState(false);
-    const oldPasswordInputRef = useRef();
-    const newPasswordInputRef = useRef();
-    const repeatNewPasswordInputRef = useRef();
+        const oldPasswordInputRef = useRef();
+        const newPasswordInputRef = useRef();
+        const repeatNewPasswordInputRef = useRef();
 
-    const submitHandler = () => {
-        console.log("change password API")
-    }
+    const [changePassword, setChangePassword] = useState(false);
+    const [changePasswordError, setChangePasswordError] = useState(null);
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+
+        const enteredOldPasswordInputRef = oldPasswordInputRef.current.value;
+        const enteredNewPasswordInputRef = newPasswordInputRef.current.value;
+        const enteredRepeatNewPasswordInputRef = repeatNewPasswordInputRef.current.value;
+
+        if (enteredNewPasswordInputRef != enteredRepeatNewPasswordInputRef) {
+            setChangePasswordError("New password and its repeated must match");
+            return;
+        } else setChangePasswordError(null);
+    
+        const changePasswordData = {
+            password: enteredOldPasswordInputRef,
+            newPassword: enteredNewPasswordInputRef
+        };
+
+        console.log(changePasswordData);
+
+        fetch(
+            'http://localhost:4000/users/changePassword',
+            {
+                method: 'POST',
+                body: JSON.stringify(changePasswordData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include'
+            }
+        )
+        .then(res => {
+            if (res.ok) {
+                console.log('fetch successful');
+            } else {
+                console.log('fetch NOT successful');
+            }
+            res.json().then((data) => {
+                console.log(data)
+            });
+        }).catch(err => {
+            console.log(err);
+        });
+    };
 
     return (
         
@@ -41,6 +84,13 @@ const DashboardPage = () => {
                     </div>
                     {changePassword ? (
                     <>
+                    <div className={styles.errorCard}>
+                        <Card>
+                            <div className={styles.errorMessage}>
+                                {changePasswordError && <p>{changePasswordError}</p>}
+                            </div>
+                        </Card>
+                    </div>
                     <Card>
                         <form className={styles.form} onSubmit={submitHandler}>
                             <div className={styles.control}>
