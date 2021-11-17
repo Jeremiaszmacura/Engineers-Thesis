@@ -24,7 +24,7 @@ const DashboardPage = () => {
         const enteredNewPasswordInputRef = newPasswordInputRef.current.value;
         const enteredRepeatNewPasswordInputRef = repeatNewPasswordInputRef.current.value;
 
-        if (enteredNewPasswordInputRef != enteredRepeatNewPasswordInputRef) {
+        if (enteredNewPasswordInputRef !== enteredRepeatNewPasswordInputRef) {
             setChangePasswordError("New password and its repeated must match");
             return;
         } else setChangePasswordError(null);
@@ -55,7 +55,9 @@ const DashboardPage = () => {
                 console.log('fetch NOT successful');
             }
             res.json().then((data) => {
-                console.log(data)
+                if (data.error !== "Password has been changed") {
+                    setChangePasswordError(data.error);
+                } else setChangePasswordError("Password has been changed");
             });
         }).catch(err => {
             console.log(err);

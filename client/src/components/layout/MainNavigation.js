@@ -40,6 +40,9 @@ const MainNavigation = () => {
                         <li>
                             <Link to='/create-exam'>Creat Exam</Link>
                         </li>
+                        <li>
+                                <Link to='/my-exams'>My Exams</Link>
+                            </li>
                         {admin ? (
                             <li>
                                 <Link to='/all-exams'>All Exams</Link>

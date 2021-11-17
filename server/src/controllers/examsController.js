@@ -14,8 +14,20 @@ const generateRundomString = () => {
 
 const allExamsGet = async (req, res) => {
     try {
-        const exam = await Exam.findAll({ include: 'user' });
-        return res.json(exam);
+        const exams = await Exam.findAll({ include: 'user' });
+        return res.json(exams);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
+};
+
+
+const myExamsGet = async (req, res) => {
+    try {
+        const user = await User.findOne({ where: { uuid: req.user.uuid } });
+        const exams = await Exam.findAll({ where: { userId: user.id } });
+        return res.json(exams);
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: 'Something went wrong' });
@@ -57,6 +69,7 @@ const ExamGet = async (req, res) => {
 
 const ExamDelete = async (req, res) => {
     try {
+        console.log(req.params)
         const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
         await exam.destroy();
         return res.json({ message: 'Exam deleted.' });
@@ -101,6 +114,7 @@ const ExamAndQuestionsByAccessCodeGet = async (req, res) => {
 
 module.exports = {
     allExamsGet,
+    myExamsGet,
     examCreatePost,
     ExamGet,
     ExamDelete,

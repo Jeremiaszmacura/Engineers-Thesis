@@ -17,6 +17,18 @@ const router = express.Router();
  router.get("/", authenticateUser, examsController.allExamsGet);
 
 
+ /**
+ * @swagger
+ * /exams/my-exams':
+ *  get:
+ *    description: Use to get all exams owned by current user
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+  router.get("/my-exams", authenticateUser, examsController.myExamsGet);
+
+
    /**
   * @swagger
   * /exams/accessCode':

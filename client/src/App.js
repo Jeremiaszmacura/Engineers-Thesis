@@ -6,6 +6,7 @@ import CreateExamPage from './pages/CreateExam';
 import DashboardPase from './pages/Dashboard';
 import HelpPage from './pages/Help';
 import AllExamsPage from './pages/AllExams';
+import MyExamsPage from './pages/MyExams'
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
 import Layout from './components/layout/Layout';
@@ -50,6 +51,9 @@ const App = () => {
                         </Route>
                         <Route path='/all-exams'>
                             <AllExamsPage />
+                        </Route>
+                        <Route path='/my-exams'>
+                            <MyExamsPage />
                         </Route>
                         <Route path='/login'>
                             <LoginPage />
