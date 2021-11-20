@@ -9,6 +9,7 @@ import AllExamsPage from './pages/AllExams';
 import MyExamsPage from './pages/MyExams'
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
+import EditExamPage from './pages/EditExam';
 import Layout from './components/layout/Layout';
 import { UserContext, AdminContext } from './UserContext';
 
@@ -60,6 +61,9 @@ const App = () => {
                         </Route>
                         <Route path='/register'>
                             <RegisterPage />
+                        </Route>
+                        <Route path='/edit-exam/:handle'>
+                            <EditExamPage />
                         </Route>
                     </Switch>
                 </Layout>

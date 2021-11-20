@@ -81,7 +81,7 @@ const DashboardPage = () => {
                         </div>
                     </Card>
                     <div className={styles.buttons}>
-                        <Link to='/all-exams'><button>All Exams</button></Link>
+                        <Link to='/my-exams'><button>My Exams</button></Link>
                         <button onClick={setChangePassword}>Change Password</button>
                     </div>
                     {changePassword ? (
@@ -113,7 +113,7 @@ const DashboardPage = () => {
                         </form>
                     </Card>
                 </>
-            ) : (null)}
+            ) : (null) }
                 </>
             ) : (
                 <div className={styles.errorCard}>

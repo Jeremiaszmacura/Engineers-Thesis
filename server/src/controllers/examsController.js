@@ -58,7 +58,10 @@ const examCreatePost = async (req, res) => {
 
 const ExamGet = async (req, res) => {
     try {
-        const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid },
+            include:  { all: true, nested: true }
+        });
         return res.json(exam);
     } catch (err) {
         console.log(err);
@@ -69,7 +72,6 @@ const ExamGet = async (req, res) => {
 
 const ExamDelete = async (req, res) => {
     try {
-        console.log(req.params)
         const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
         await exam.destroy();
         return res.json({ message: 'Exam deleted.' });
@@ -99,7 +101,6 @@ const ExamUpdate = async (req, res) => {
 
 const ExamAndQuestionsByAccessCodeGet = async (req, res) => {
     try {
-        console.log(req.body)
         const examAndQuestions = await Exam.findOne({ 
             where: { accessCode: req.body.accessCode }, 
             include: 'questions' 

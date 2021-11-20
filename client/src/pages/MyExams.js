@@ -55,7 +55,7 @@ const AllExamsPage = () => {
 
     return (
         <section>
-            <h1>All Exams Page</h1>
+            <h1>My Exams</h1>
             <ExamList exams={loadedExams} />
         </section>
     );

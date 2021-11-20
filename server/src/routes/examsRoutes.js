@@ -57,7 +57,7 @@ const router = express.Router();
   * @swagger
   * /exams/:uuid':
   *  get:
-  *    description: Get Exam passing uuid in url params
+  *    description: Get Exam with asigned question passing uuid in url params
   *    responses:
   *      '200':
   *        description: A successful response
