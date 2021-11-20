@@ -7,15 +7,6 @@ passportLocal = require("passport-local").Strategy;
 const { User } = require("../models");
 
 
-const generateAccessToken = (user) => {
-    return jwt.sign(
-        { userUuid: user.uuid, isAuth: "true", role: user.role }, 
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '1200s' }
-        );
-};
-
-
 const registerPost = async (req, res) => {
     const { name, email } = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10); // second param is salt
@@ -47,25 +38,43 @@ const loginPost = async (req, res, next) => {
                 }
             });
           });
-        }
+        };
       })(req, res, next);
 };
 
 
-const changePassword = (req, res) => {
-    console.log("change pass backend");
-    console.log(req.body);
+const changePassword = async (req, res) => {
+    const { password, newPassword } = req.body;
+    try {
+        const user = await User.findOne({ where: { uuid: req.user.uuid } });
+
+        bcrypt.compare(password, user.password, async (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: 'Something went wrong while comparing passwrods' });
+            };
+            if (result) {
+                const newHashedPassword = await bcrypt.hash(newPassword, 10);
+                user.password = newHashedPassword;
+                await user.save();
+                return res.status(200).json({ error: 'Password has been changed' });
+            };
+            return res.status(200).json({ error: 'Invalid password' });
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
 };
 
 
 const checkIfLoggedIn = (req, res) => {
-    return res.json({ loggedIn: true })
+    return res.json({ loggedIn: true });
 };
 
 
 const logoutGet = (req, res) => {
     req.logout();
-    res.status(200).json("Successfully logged out")
+    res.status(200).json("Successfully logged out");
 };
 
 

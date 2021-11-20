@@ -7,7 +7,6 @@ module.exports = (passport) => {
     passport.use(
         new localStrategy ( { usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
             try {
-                console.log('hi')
                 const user = await User.findOne({ where: { email: email } });
                 if (!user) return done(null, false, { message: "No such an email registered." });
                 bcrypt.compare(password, user.password, (err, result) => {
@@ -24,7 +23,6 @@ module.exports = (passport) => {
 
   
     passport.serializeUser((user, done) => {
-        console.log('serializeUser');
         done(null, user.email);
     });
 

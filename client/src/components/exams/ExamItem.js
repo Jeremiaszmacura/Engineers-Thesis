@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Card from '../ui/Card';
 import styles from './ExamItem.module.css';
 
@@ -49,7 +51,7 @@ const ExamItem = (props) => {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <button>Edit</button>
+                    <Link to={`/edit-exam/${props.uuid}`}><button>Manage</button></Link>
                     <button onClick={deleteExam}>Delete</button>
                 </div>
             </Card>

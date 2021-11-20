@@ -15,7 +15,7 @@ const swaggerUi = require("swagger-ui-express");
 // IMPORT INTERNAL LIBRARIES
 const usersRoutes = require("./routes/usersRoutes");
 const examsRoutes = require("./routes/examsRoutes");
-// database DROP DATABASE database_development_test WITH (FORCE);
+const questionsRoutes = require("./routes/questionsRoutes");
 const { sequelize } = require("./models");
 
 
@@ -58,6 +58,7 @@ require("./middleware/passportConfig")(passport);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/users", usersRoutes);
 app.use("/exams", examsRoutes);
+app.use("/questions", questionsRoutes);
 app.use((req, res) => {
     res.status(404).send("404 Error");
 });

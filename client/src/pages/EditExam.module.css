@@ -1,0 +1,130 @@
+.item {
+    margin: 1rem 0;
+  }
+  
+  .image {
+    width: 100%;
+    height: 20rem;
+    overflow: hidden;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  
+  .image img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .content {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .content h3 {
+    font-size: 1.25rem;
+    color: #2c292b;
+  }
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .element {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: left;
+  }
+  
+  .actions {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .actions2 {
+    text-align: center;
+  }
+  
+  .actions button {
+    font: inherit;
+    cursor: pointer;
+    color: white;
+    border: 1px solid #00185a;
+    background-color: #00185a;
+    /* background-color: transparent; */
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    border-width: 2px;
+    margin: 0 1em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .actions button:hover,
+  .actions button:active {
+    background-color: #a50e48;
+    border-color: #a50e48;
+  }
+
+.manage {
+    padding-bottom: 2em;
+}
+
+.form {
+  padding: 1rem;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  padding-top: 1em;
+  font-size: 1.2em;
+}
+
+.control input,
+.control textarea {
+  display: block;
+  font: inherit;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  width: 100%;
+}
+
+#submit {
+  margin-top: 2em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.control select {
+  font-size: 1em;
+  color: white;
+  margin-bottom: 1em;
+  padding: 0.5em 1em;
+  border-color: white;
+  border-radius: 5px;
+  background-color: #00185a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control textarea {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.answers {
+  border-style: solid;
+  border-color: #b6b4b4;
+  border-width: 1px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  margin-bottom: 2em;
+}

@@ -20,7 +20,7 @@ const AllExamsPage = () => {
     useEffect(() => {
         setIsLoading(true); 
         fetch(
-            'http://localhost:4000/exams',
+            'http://localhost:4000/exams/my-exams',
             {
                 method: 'GET',
                 credentials: 'include'
@@ -40,7 +40,7 @@ const AllExamsPage = () => {
             }
 
             setIsLoading(false);
-            prepareDateTimeFormat(exams);
+            prepareDateTimeFormat(exams)
             setLoadedExams(exams);
         });
     }, []);
@@ -55,7 +55,7 @@ const AllExamsPage = () => {
 
     return (
         <section>
-            <h1>All Exams</h1>
+            <h1>My Exams</h1>
             <ExamList exams={loadedExams} />
         </section>
     );

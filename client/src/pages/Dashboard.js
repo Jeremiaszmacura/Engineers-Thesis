@@ -24,7 +24,7 @@ const DashboardPage = () => {
         const enteredNewPasswordInputRef = newPasswordInputRef.current.value;
         const enteredRepeatNewPasswordInputRef = repeatNewPasswordInputRef.current.value;
 
-        if (enteredNewPasswordInputRef != enteredRepeatNewPasswordInputRef) {
+        if (enteredNewPasswordInputRef !== enteredRepeatNewPasswordInputRef) {
             setChangePasswordError("New password and its repeated must match");
             return;
         } else setChangePasswordError(null);
@@ -55,7 +55,9 @@ const DashboardPage = () => {
                 console.log('fetch NOT successful');
             }
             res.json().then((data) => {
-                console.log(data)
+                if (data.error !== "Password has been changed") {
+                    setChangePasswordError(data.error);
+                } else setChangePasswordError("Password has been changed");
             });
         }).catch(err => {
             console.log(err);
@@ -79,7 +81,7 @@ const DashboardPage = () => {
                         </div>
                     </Card>
                     <div className={styles.buttons}>
-                        <Link to='/all-exams'><button>All Exams</button></Link>
+                        <Link to='/my-exams'><button>My Exams</button></Link>
                         <button onClick={setChangePassword}>Change Password</button>
                     </div>
                     {changePassword ? (
@@ -111,7 +113,7 @@ const DashboardPage = () => {
                         </form>
                     </Card>
                 </>
-            ) : (null)}
+            ) : (null) }
                 </>
             ) : (
                 <div className={styles.errorCard}>
