@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
+import Card from '../components/ui/Card';
 import ExamList from "../components/exams/ExamList";
+import styles from './MyExams.module.css'
 
 const AllExamsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -55,8 +57,24 @@ const AllExamsPage = () => {
 
     return (
         <section>
-            <h1>My Exams</h1>
-            <ExamList exams={loadedExams} />
+            {loadedExams[0] ? (
+                <>
+                <h1>My Exams</h1>
+                <ExamList exams={loadedExams} />
+                </>
+            ) : (
+                <>
+                    <div className={styles.container}>
+                        <Card>
+                            <h2 className={styles.title}>You do not have any created tests yet</h2>
+                            <p className={styles.description}>
+                                To create test go to "Create Exam" section...
+                            </p>
+                        </Card>
+                    </div>
+                </>
+            )}
+            
         </section>
     );
 }

@@ -32,12 +32,11 @@ const LoginPage = () => {
         )
         .then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] login - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] login - fetch NOT successful');
             }
             res.json().then((data) => {
-                console.log(data)
                 if (data.message === "Successfully Authenticated") {
                     setUser(data.user);
                     if (data.role === 'admin') setAdmin(data.role);

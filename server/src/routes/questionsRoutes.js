@@ -7,7 +7,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /exams':
+ * /questions/create/:uuid':
  *  post:
  *    description: Pass exam's uuid to create exma's question
  *    responses:
@@ -15,6 +15,18 @@ const router = express.Router();
  *        description: A successful response
  */
  router.post("/create/:uuid", authenticateUser, questionsController.createQuestionPost);
+
+
+/**
+ * @swagger
+ * /questions/:uuid':
+ *  delete:
+ *    description: Pass question's uuid to delete question
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+ router.delete("/:uuid", authenticateUser, questionsController.deleteQuestionPost);
 
  
  module.exports = router;

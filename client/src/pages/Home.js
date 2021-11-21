@@ -23,11 +23,11 @@ const HomePage = () => {
             }
         ).then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] access code - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] access code - fetch NOT successful');
             }
-            res.json().then(data => console.log(data));
+            res.json().then(data => console.log('[SERVER] access code - ' + data));
         }).catch(err => {
             console.log(err);
         });

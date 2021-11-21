@@ -18,11 +18,11 @@ const MainNavigation = () => {
             }
         ).then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] logout - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] logout - fetch NOT successful');
             }
-            res.json().then(data => console.log(data));
+            res.json().then(data => console.log('[SERVER] logout - '+data));
         });
         localStorage.clear();
     };

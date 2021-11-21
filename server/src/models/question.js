@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE', 
         hooks:true 
       });
-      this.hasMany(models.ValiableAnswer, { 
+      this.hasMany(models.AvaliableAnswer, { 
         foreignKey: 'questionId', 
-        as: 'valiableanswers', 
+        as: 'avaliableanswers', 
         onDelete: 'CASCADE', 
         hooks:true 
       });
