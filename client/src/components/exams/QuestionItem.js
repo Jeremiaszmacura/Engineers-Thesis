@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import Card from '../ui/Card';
@@ -64,8 +63,7 @@ const QuestionItem = (props) => {
                             
                         </div>
                         <div className={styles.actions2}>
-                            <button onClick={showAvailableAnswersSwitch}>Show avaiable answers</button>
-                            <Link to={`/`}><button>Edit</button></Link>
+                            <button onClick={showAvailableAnswersSwitch}>Avaiable answers</button>
                             <button onClick={deleteQuestion}>Delete</button>
                         </div>
                     </Card>

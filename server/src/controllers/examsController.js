@@ -91,7 +91,7 @@ const ExamUpdate = async (req, res) => {
         if (endsAt) { exam.endsAt = endsAt; };
         if (description) { exam.description = description; };
         await exam.save();
-        return res.json(exam);
+        return res.status(200).json(exam);
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: 'Something went wrong' });

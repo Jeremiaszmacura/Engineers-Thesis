@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Card from '../components/ui/Card'
 import styles from './EditExam.module.css'
 import QuestionList from "../components/exams/QuestionList";
+import CreateExamForm from "../components/exams/CreateExamForm";
 
 
 const EditExamPage = () => {
@@ -11,6 +12,8 @@ const EditExamPage = () => {
     const [loadedExam, setLoadedExam] = useState(null); // Loaded Exams
     const [loadedQuestions, setLoadedQuestions] = useState([]); // Loaded Questions
     const [addQuestion, setAddQuestion] = useState(false); // Add Question - display form
+    const [editExam, setEditExam] = useState(false); // Edit Exam - display form
+
     const [singleChoiceQuestion, setSingleChoiceQuestion] = useState(true); // Set Question Type
     const [multipleChoiceQuestion, setMultipleChoiceQuestion] = useState(false); // Set Question Type
     const [openQuestion, setOpenQuestion] = useState(false); // Set Question Type
@@ -175,6 +178,35 @@ const EditExamPage = () => {
 
     };
 
+    const editExamSwitch = () => {
+        if (editExam) setEditExam(false);
+        else setEditExam(true);
+    };
+
+    const editExamHandler = (examData) => {
+        console.log(examData)
+        fetch(
+            'http://localhost:4000/exams/' + loadedExam.uuid,
+            {
+                method: 'PUT',
+                body: JSON.stringify(examData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include'
+            }
+        ).then(res => {
+            if (res.ok) {
+                console.log('[CLIENT] edit exam - fetch successful');
+                window.location.reload(false);
+            } else {
+                console.log('[CLIENT] edit exam - fetch NOT successful');
+            }
+            res.json().then(data => console.log(data));
+        });
+    }
+
     const addingQuestionSwitch = () => {
         if (addQuestion) {
             setAddQuestion(false);
@@ -241,10 +273,16 @@ const EditExamPage = () => {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <button>Edit</button>
+                    <button onClick={editExamSwitch}>Edit</button>
                     <button onClick={deleteExam}>Delete</button>
                 </div>
             </Card>
+
+            {editExam ? (
+                <>
+                <CreateExamForm onCreateExam={editExamHandler} />
+                </>
+            ) : (null)}
 
             <h1>Manage Questions</h1>
 
