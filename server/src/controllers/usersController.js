@@ -73,8 +73,13 @@ const checkIfLoggedIn = (req, res) => {
 
 
 const logoutGet = (req, res) => {
-    req.logout();
+    try {
+        req.logout();
     res.status(200).json("Successfully logged out");
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    }
 };
 
 

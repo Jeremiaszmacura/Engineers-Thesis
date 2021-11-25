@@ -61,4 +61,16 @@
     background-color: #a50e48;
     border-color: #a50e48;
   }
+
+  .errorCard {   
+    display: flex;
+    justify-content: center;
+    padding: 2em 0 1em 0;
+}
+
+.errorMessage {
+    font-size: 1.2em;
+    padding: 0 2em;
+    text-align: center;
+}
   

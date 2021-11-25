@@ -10,6 +10,8 @@ import MyExamsPage from './pages/MyExams'
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
 import EditExamPage from './pages/EditExam';
+import SolveExamPage from './pages/SolveExam';
+import EntrySolveExamPage from './pages/EntrySolveExam';
 import Layout from './components/layout/Layout';
 import { UserContext, AdminContext } from './UserContext';
 
@@ -64,6 +66,12 @@ const App = () => {
                         </Route>
                         <Route path='/edit-exam/:handle'>
                             <EditExamPage />
+                        </Route>
+                        <Route path='/solve-exam/:handle'>
+                            <SolveExamPage />
+                        </Route>
+                        <Route path='/entry-solve-exam/:handle'>
+                            <EntrySolveExamPage />
                         </Route>
                     </Switch>
                 </Layout>

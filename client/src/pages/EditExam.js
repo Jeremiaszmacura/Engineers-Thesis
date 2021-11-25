@@ -28,6 +28,15 @@ const EditExamPage = () => {
     const history = useHistory();
 
 
+    const prepareDateTimeFormat = (exam) => {
+            exam.startsAt = "date: " + exam.startsAt.replaceAll('-', '.')
+            exam.startsAt = exam.startsAt.replaceAll('T', ', time: ')
+            exam.startsAt = exam.startsAt.replaceAll('.000Z', '')
+            exam.endsAt = "date: " + exam.endsAt.replaceAll('-', '.')
+            exam.endsAt = exam.endsAt.replaceAll('T', ', time: ')
+            exam.endsAt = exam.endsAt.replaceAll('.000Z', '')
+    };
+
     useEffect(() => {
         // fetch exam from severs
         setIsLoading(true);
@@ -40,6 +49,7 @@ const EditExamPage = () => {
         ).then((response) => {
             return response.json();
         }).then((exam) => {
+            prepareDateTimeFormat(exam);
             setLoadedExam(exam);
             const questions = [];
 

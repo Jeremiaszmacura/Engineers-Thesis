@@ -1,0 +1,16 @@
+.valiableAnswers {
+    display: flex;
+    justify-content: left;
+    padding: 1em 2em;
+  }
+
+  .selectbox {
+    margin-left: 1em;
+    font-size: 1em;
+    color: white;
+    padding: 1px 4px;
+    border-color: white;
+    border-radius: 5px;
+    background-color: #00185a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }

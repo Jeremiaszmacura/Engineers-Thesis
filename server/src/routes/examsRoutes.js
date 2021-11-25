@@ -38,7 +38,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
-    router.post("/accessCode", examsController.ExamAndQuestionsByAccessCodeGet);
+    router.post("/accessCode", examsController.examByAccessCodeGet);
 
 
  /**
@@ -53,6 +53,42 @@ const router = express.Router();
  router.post("/create", authenticateUser, examsController.examCreatePost);
 
  
+  /**
+  * @swagger
+  * /exams/solve-availability/:uuid':
+  *  get:
+  *    description: Check if exam if available to solve
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+   router.get("/solve-availability/:uuid", examsController.examAvailabilityGet);
+
+
+  /**
+  * @swagger
+  * /exams/solve/:uuid':
+  *  get:
+  *    description: Get Exam to solve passing uuid in url params
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+  router.get("/solve/:uuid", examsController.solveExamGet);
+
+
+    /**
+  * @swagger
+  * /exams/solve/:uuid':
+  *  post:
+  *    description: Post solved exam
+  *    responses:
+  *      '200':
+  *        description: A successful response
+  */
+     router.post("/solve/:uuid", examsController.solveExamPost);
+
+ 
  /**
   * @swagger
   * /exams/:uuid':
@@ -62,7 +98,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
- router.get("/:uuid", authenticateUser, examsController.ExamGet);
+ router.get("/:uuid", authenticateUser, examsController.examGet);
 
 
  /**
@@ -74,7 +110,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
-  router.delete("/:uuid", authenticateUser, examsController.ExamDelete);
+  router.delete("/:uuid", authenticateUser, examsController.examDelete);
 
 
    /**
@@ -86,7 +122,7 @@ const router = express.Router();
   *      '200':
   *        description: A successful response
   */
-  router.put("/:uuid", authenticateUser, examsController.ExamUpdate);
+  router.put("/:uuid", authenticateUser, examsController.examUpdate);
 
  
  module.exports = router;

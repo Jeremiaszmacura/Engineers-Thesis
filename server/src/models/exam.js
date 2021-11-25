@@ -50,6 +50,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    pointsToGet: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    showScore: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
   }, {
     sequelize,
     tableName: 'exams',

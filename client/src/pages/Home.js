@@ -1,10 +1,12 @@
 import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import styles from './Home.module.css'
 import Card from '../components/ui/Card'
 
 const HomePage = () => {
 
+    const history = useHistory();
     const examCodeInputRef = useRef();
 
     const submitHandler = (event) => {
@@ -12,26 +14,7 @@ const HomePage = () => {
 
         const enteredExamCode = examCodeInputRef.current.value;
 
-        fetch(
-            'http://localhost:4000/exams/accessCode',
-            {
-                method: 'POST',
-                body: JSON.stringify({"accessCode": enteredExamCode}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        ).then(res => {
-            if (res.ok) {
-                console.log('[CLIENT] access code - fetch successful');
-            } else {
-                console.log('[CLIENT] access code - fetch NOT successful');
-            }
-            res.json().then(data => console.log('[SERVER] access code - ' + data));
-        }).catch(err => {
-            console.log(err);
-        });
-
+        history.push(`/entry-solve-exam/${enteredExamCode}`);
     };
 
 

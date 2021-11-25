@@ -11,9 +11,9 @@ const AllExamsPage = () => {
             exam.startsAt = "date: " + exam.startsAt.replaceAll('-', '.')
             exam.startsAt = exam.startsAt.replaceAll('T', ', time: ')
             exam.startsAt = exam.startsAt.replaceAll('.000Z', '')
-            exam.endsAt = "date: " + exam.startsAt.replaceAll('-', '.')
-            exam.endsAt = exam.startsAt.replaceAll('T', ', time: ')
-            exam.endsAt = exam.startsAt.replaceAll('.000Z', '')
+            exam.endsAt = "date: " + exam.endsAt.replaceAll('-', '.')
+            exam.endsAt = exam.endsAt.replaceAll('T', ', time: ')
+            exam.endsAt = exam.endsAt.replaceAll('.000Z', '')
         });
     };
 

@@ -16,6 +16,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      score: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
       examId: {
         type: DataTypes.INTEGER,
         allowNull: false,

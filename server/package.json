@@ -14,7 +14,8 @@
     "undo-latest-migration": "cd src && sequelize db:migrate:undo && cd ..",
     "undo-all-migrations": "cd src && sequelize db:migrate:undo:all && cd ..",
     "migration-status": "cd src && sequelize db:migrate:status && cd ..",
-    "seed": "cd src && sequelize db:seed:all && cd .."
+    "seed": "cd src && sequelize db:seed:all && cd ..",
+    "undo-seed": "cd src && sequelize db:seed:undo:all && cd .."
   },
   "author": "Jeremiasz Macura",
   "license": "ISC",
