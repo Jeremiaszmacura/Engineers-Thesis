@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ValiableAnswer extends Model {
+  class AvaliableAnswer extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       return { ...this.get(), id: undefined , questionId: undefined }
     }
   };
-  ValiableAnswer.init(
+  AvaliableAnswer.init(
     {
     uuid: {
       type: DataTypes.UUID,
@@ -33,9 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    tableName: 'valiableanswers',
-    modelName: 'ValiableAnswer',
+    tableName: 'avaliableanswers',
+    modelName: 'AvaliableAnswer',
   }
   );
-  return ValiableAnswer;
+  return AvaliableAnswer;
 };

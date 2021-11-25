@@ -1,11 +1,11 @@
-import QuestionItem from './QuestionItem';
-import styles from './QuestionList.module.css';
+import SolveQuestionItem from './SolveQuestionItem';
+import styles from './SolveQuestionList.module.css';
 
-const QuestionList = (props) => {
+const SolveQuestionList = (props) => {
     return (
         <ul className={styles.list}>
             {props.questions.map((question) => (
-                <QuestionItem 
+                <SolveQuestionItem 
                 key={question.id} 
                 id={question.id}
                 uuid={question.uuid} 
@@ -18,4 +18,4 @@ const QuestionList = (props) => {
     );
 }
 
-export default QuestionList;
+export default SolveQuestionList;

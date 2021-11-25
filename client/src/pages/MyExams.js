@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 
+import Card from '../components/ui/Card';
 import ExamList from "../components/exams/ExamList";
+import styles from './MyExams.module.css'
 
-const AllExamsPage = () => {
+const MyExamsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedExams, setLoadedExams] = useState([]);
 
@@ -11,9 +13,9 @@ const AllExamsPage = () => {
             exam.startsAt = "date: " + exam.startsAt.replaceAll('-', '.')
             exam.startsAt = exam.startsAt.replaceAll('T', ', time: ')
             exam.startsAt = exam.startsAt.replaceAll('.000Z', '')
-            exam.endsAt = "date: " + exam.startsAt.replaceAll('-', '.')
-            exam.endsAt = exam.startsAt.replaceAll('T', ', time: ')
-            exam.endsAt = exam.startsAt.replaceAll('.000Z', '')
+            exam.endsAt = "date: " + exam.endsAt.replaceAll('-', '.')
+            exam.endsAt = exam.endsAt.replaceAll('T', ', time: ')
+            exam.endsAt = exam.endsAt.replaceAll('.000Z', '')
         });
     };
 
@@ -55,10 +57,26 @@ const AllExamsPage = () => {
 
     return (
         <section>
-            <h1>My Exams</h1>
-            <ExamList exams={loadedExams} />
+            {loadedExams[0] ? (
+                <>
+                <h1>My Exams</h1>
+                <ExamList exams={loadedExams} />
+                </>
+            ) : (
+                <>
+                    <div className={styles.container}>
+                        <Card>
+                            <h2 className={styles.title}>You do not have any created tests yet</h2>
+                            <p className={styles.description}>
+                                To create test go to "Create Exam" section...
+                            </p>
+                        </Card>
+                    </div>
+                </>
+            )}
+            
         </section>
     );
 }
 
-export default AllExamsPage;
+export default MyExamsPage;

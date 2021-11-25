@@ -1,26 +1,41 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
 import Card from '../components/ui/Card'
 import styles from './EditExam.module.css'
+import QuestionList from "../components/exams/QuestionList";
+import CreateExamForm from "../components/exams/CreateExamForm";
 
 
 const EditExamPage = () => {
     const { handle } = useParams(); // Handle params from URL
     const [loadedExam, setLoadedExam] = useState(null); // Loaded Exams
-    // const [loadedQuestions, setLoadedQuestions] = useState([]); // Loaded Questions
+    const [loadedQuestions, setLoadedQuestions] = useState([]); // Loaded Questions
     const [addQuestion, setAddQuestion] = useState(false); // Add Question - display form
+    const [editExam, setEditExam] = useState(false); // Edit Exam - display form
+
     const [singleChoiceQuestion, setSingleChoiceQuestion] = useState(true); // Set Question Type
-    const [multiChoiceQuestion, setMultiChoiceQuestion] = useState(false); // Set Question Type
+    const [multipleChoiceQuestion, setMultipleChoiceQuestion] = useState(false); // Set Question Type
     const [openQuestion, setOpenQuestion] = useState(false); // Set Question Type
     const [trueOrFalseQuestion, setTrueOrFalsQuestion] = useState(false); // Set Question Type
-    const [numberOfValiableAnswers, setNumberOfValiableAnswers] = useState(2); // Set number of valiable answers
+    const [numberOfAvaliableAnswers, setNumberOfAvaliableAnswers] = useState(2); // Set number of avaliable answers
     const [isLoading, setIsLoading] = useState(true); // Waiting to fetch data form server
 
     const questionInputRef = useRef();
     const typeInputRef = useRef();
-    const numberOfValiableAnswersInputRef = useRef();
+    const numberOfAvaliableAnswersInputRef = useRef();
 
+    const history = useHistory();
+
+
+    const prepareDateTimeFormat = (exam) => {
+            exam.startsAt = "date: " + exam.startsAt.replaceAll('-', '.')
+            exam.startsAt = exam.startsAt.replaceAll('T', ', time: ')
+            exam.startsAt = exam.startsAt.replaceAll('.000Z', '')
+            exam.endsAt = "date: " + exam.endsAt.replaceAll('-', '.')
+            exam.endsAt = exam.endsAt.replaceAll('T', ', time: ')
+            exam.endsAt = exam.endsAt.replaceAll('.000Z', '')
+    };
 
     useEffect(() => {
         // fetch exam from severs
@@ -34,7 +49,7 @@ const EditExamPage = () => {
         ).then((response) => {
             return response.json();
         }).then((exam) => {
-            console.log(exam);
+            prepareDateTimeFormat(exam);
             setLoadedExam(exam);
             const questions = [];
 
@@ -45,11 +60,8 @@ const EditExamPage = () => {
                 };
 
                 questions.push(question);
-                console.log("question:");
-                console.log(question);
             }
-            console.log("questions list:");
-            console.log(questions);
+            setLoadedQuestions(questions);
             setIsLoading(false);
         });
         
@@ -65,12 +77,12 @@ const EditExamPage = () => {
             }
         ).then(res => {
             if (res.ok) {
-                console.log('fetch successful');
-                window.location.reload(false);
+                console.log('[CLIENT] delete exam - fetch successful');
+                history.replace('/');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] delete exam - fetch NOT successful');
             }
-            res.json().then(data => console.log(data));
+            res.json().then(data => console.log('[SERVER] delete exam - '+data));
         });
     };
 
@@ -86,7 +98,7 @@ const EditExamPage = () => {
 
         const enteredQuestionInputRef = questionInputRef.current.value;
         const enteredTypeInputRef = typeInputRef.current.value;
-        const valiableAnswers = [];
+        const avaliableAnswers = [];
         const eventTargetLength = event.target.length
 
         if (enteredTypeInputRef === "open") {
@@ -94,68 +106,64 @@ const EditExamPage = () => {
                 answer: event.target[2].value,
                 isCorrect: "true"
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (enteredTypeInputRef === "trueOrFalse") {
             const answerItem = {
                 answer: enteredQuestionInputRef,
                 isCorrect: event.target[2].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 5) {
             const answerItem = {
                 answer: event.target[3].value,
                 isCorrect: event.target[4].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 6) {
             const answerItem = {
                 answer: event.target[5].value,
                 isCorrect: event.target[6].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 8) {
             const answerItem = {
                 answer: event.target[7].value,
                 isCorrect: event.target[8].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 10) {
             const answerItem = {
                 answer: event.target[9].value,
                 isCorrect: event.target[10].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 12) {
             const answerItem = {
                 answer: event.target[11].value,
                 isCorrect: event.target[12].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
         if (eventTargetLength > 14) {
             const answerItem = {
                 answer: event.target[13].value,
                 isCorrect: event.target[14].value
             }
-            valiableAnswers.push(answerItem)
+            avaliableAnswers.push(answerItem)
         }
 
         
         const createdQuestion = {
             question: enteredQuestionInputRef,
             type: enteredTypeInputRef,
-            valiableAnswers: valiableAnswers
-        };
-
-        console.log(createdQuestion);
-        console.log("send to server - adding question");
-        // window.location.reload(false);
+            avaliableAnswers: avaliableAnswers
+        };    
 
         fetch(
             `http://localhost:4000/questions/create/${handle}`,
@@ -170,31 +178,72 @@ const EditExamPage = () => {
             }
         ).then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] create question - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] create question - fetch NOT successful');
             }
-            res.json().then(data => console.log(data));
+            res.json().then(data => console.log('[SERVER] create question - '+data));
+            window.location.reload(false);
         });
 
     };
 
-    const changeQuestionType = (event) => {
+    const editExamSwitch = () => {
+        if (editExam) setEditExam(false);
+        else setEditExam(true);
+    };
+
+    const editExamHandler = (examData) => {
+        console.log(examData)
+        fetch(
+            'http://localhost:4000/exams/' + loadedExam.uuid,
+            {
+                method: 'PUT',
+                body: JSON.stringify(examData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include'
+            }
+        ).then(res => {
+            if (res.ok) {
+                console.log('[CLIENT] edit exam - fetch successful');
+                window.location.reload(false);
+            } else {
+                console.log('[CLIENT] edit exam - fetch NOT successful');
+            }
+            res.json().then(data => console.log(data));
+        });
+    }
+
+    const addingQuestionSwitch = () => {
+        if (addQuestion) {
+            setAddQuestion(false);
+            setSingleChoiceQuestion(true);
+            setMultipleChoiceQuestion(false);
+            setOpenQuestion(false);
+            setTrueOrFalsQuestion(false);
+        }
+        else setAddQuestion(true);
+    }
+
+    const changeQuestionType = () => {
         // question type to display the appropriate form
         const enteredTypeInputRef = typeInputRef.current.value;
-        setNumberOfValiableAnswers(2);
+        setNumberOfAvaliableAnswers(2);
         setSingleChoiceQuestion(false);
-        setMultiChoiceQuestion(false);
+        setMultipleChoiceQuestion(false);
         setOpenQuestion(false);
         setTrueOrFalsQuestion(false);
         if (enteredTypeInputRef === "singleChoice") setSingleChoiceQuestion(true);
-        else if (enteredTypeInputRef === "multiChoice") setMultiChoiceQuestion(true);
+        else if (enteredTypeInputRef === "multipleChoice") setMultipleChoiceQuestion(true);
         else if (enteredTypeInputRef === "open") setOpenQuestion(true);
         else if (enteredTypeInputRef === "trueOrFalse") setTrueOrFalsQuestion(true);
     };
 
-    const changeNumberOfAvaibleAnswers = (event) => {
-        setNumberOfValiableAnswers(Number(numberOfValiableAnswersInputRef.current.value));
+    const changeNumberOfAvaibleAnswers = () => {
+        setNumberOfAvaliableAnswers(Number(numberOfAvaliableAnswersInputRef.current.value));
     };
 
 
@@ -234,15 +283,21 @@ const EditExamPage = () => {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <button>Edit</button>
+                    <button onClick={editExamSwitch}>Edit</button>
                     <button onClick={deleteExam}>Delete</button>
                 </div>
             </Card>
 
+            {editExam ? (
+                <>
+                <CreateExamForm onCreateExam={editExamHandler} />
+                </>
+            ) : (null)}
+
             <h1>Manage Questions</h1>
 
             <div className={styles.manage}>
-                <button onClick={setAddQuestion}>Add Question</button>
+                <button onClick={addingQuestionSwitch}>Add Question</button>
             </div>
 
             {addQuestion ? (
@@ -259,7 +314,7 @@ const EditExamPage = () => {
                                 <label htmlFor='newPassword'>type</label>
                                 <select ref={typeInputRef} onChange={changeQuestionType}>
                                     <option defaultValue value="singleChoice">Signle Choice</option>
-                                    <option value="multiChoice">Multi Choice</option>
+                                    <option value="multipleChoice">Multiple Choice</option>
                                     <option value="open">Open</option>
                                     <option value="trueOrFalse">True/False</option>
                                 </select>
@@ -268,8 +323,8 @@ const EditExamPage = () => {
                             {singleChoiceQuestion ? (
                                 <>  
                                     <div className={styles.control}>
-                                        <label htmlFor='newPassword'>Number of valiable answers</label>
-                                        <select ref={numberOfValiableAnswersInputRef} onChange={changeNumberOfAvaibleAnswers}>
+                                        <label htmlFor='newPassword'>Number of avaliable answers</label>
+                                        <select ref={numberOfAvaliableAnswersInputRef} onChange={changeNumberOfAvaibleAnswers}>
                                             <option defaultValue value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
@@ -277,13 +332,13 @@ const EditExamPage = () => {
                                             <option value="6">6</option>
                                         </select>
                                     </div>
-                                    {numberOfValiableAnswers ? (
+                                    {numberOfAvaliableAnswers ? (
                                         <>
                                         {
-                                            [...Array(numberOfValiableAnswers)].map((e, i) => 
+                                            [...Array(numberOfAvaliableAnswers)].map((e, i) => 
                                             <div className={styles.control} key={i}>
                                                 <div className={styles.answers}>
-                                                    <label htmlFor='answer'>Valiable Answer</label>
+                                                    <label htmlFor='answer'>Avaliable Answer</label>
                                                     <textarea onKeyDown={handleKeyDown} type='text' required id={"answer"+i}/>
                                                     <label htmlFor='isCorrect'>Is Correct</label>
                                                     <select>
@@ -298,11 +353,11 @@ const EditExamPage = () => {
                                         ):(null)}
                                 </>
                             ) : (null) }
-                            {multiChoiceQuestion ? (
+                            {multipleChoiceQuestion ? (
                                 <>  
                                 <div className={styles.control}>
-                                    <label htmlFor='newPassword'>Number of valiable answers</label>
-                                    <select ref={numberOfValiableAnswersInputRef} onChange={changeNumberOfAvaibleAnswers}>
+                                    <label htmlFor='newPassword'>Number of avaliable answers</label>
+                                    <select ref={numberOfAvaliableAnswersInputRef} onChange={changeNumberOfAvaibleAnswers}>
                                         <option defaultValue value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -310,13 +365,13 @@ const EditExamPage = () => {
                                         <option value="6">6</option>
                                     </select>
                                 </div>
-                                {numberOfValiableAnswers ? (
+                                {numberOfAvaliableAnswers ? (
                                     <>
                                     {
-                                        [...Array(numberOfValiableAnswers)].map((e, i) => 
+                                        [...Array(numberOfAvaliableAnswers)].map((e, i) => 
                                         <div className={styles.control} key={i}>
                                             <div className={styles.answers}>
-                                                <label htmlFor='answer'>Valiable Answer</label>
+                                                <label htmlFor='answer'>Avaliable Answer</label>
                                                 <textarea onKeyDown={handleKeyDown} type='text' required id={"answer"+i}/>
                                                 <label htmlFor='isCorrect'>Is Correct</label>
                                                 <select>
@@ -356,7 +411,7 @@ const EditExamPage = () => {
                             ) : (null) }
 
                             <div className={styles.actions2}>
-                                <button id={styles.submit}>Submit</button>
+                                <button id={styles.submit}>Create Question</button>
                             </div>
                         </form>
                         </div>
@@ -364,9 +419,7 @@ const EditExamPage = () => {
                 </>
             ) : (null) }
 
-            <Card>
-                <p>questions...</p>
-            </Card>
+            <QuestionList questions={loadedQuestions} />
         </div>
     );
 }

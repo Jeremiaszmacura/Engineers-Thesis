@@ -34,8 +34,6 @@ const DashboardPage = () => {
             newPassword: enteredNewPasswordInputRef
         };
 
-        console.log(changePasswordData);
-
         fetch(
             'http://localhost:4000/users/changePassword',
             {
@@ -50,9 +48,9 @@ const DashboardPage = () => {
         )
         .then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] change passwrod - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] change passwrod - fetch NOT successful');
             }
             res.json().then((data) => {
                 if (data.error !== "Password has been changed") {

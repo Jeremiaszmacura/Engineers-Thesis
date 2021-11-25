@@ -6,8 +6,10 @@ ENV POSTGRES_DB=maknowledge_development_db \
 
 WORKDIR /workspace/server
 
-COPY . /workspace/server
+COPY package*.json .
 
 RUN npm install
 
-CMD ["node", "/workspace/server/src/server.js"]
+COPY . /workspace/server
+
+CMD ["node", "src/server.js"]

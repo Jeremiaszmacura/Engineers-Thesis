@@ -14,11 +14,11 @@ const RegisterPage = () => {
             }
         ).then(res => {
             if (res.ok) {
-                console.log('fetch successful');
+                console.log('[CLIENT] register - fetch successful');
             } else {
-                console.log('fetch NOT successful');
+                console.log('[CLIENT] register - fetch NOT successful');
             }
-            res.json().then(data => console.log(data));
+            res.json().then(data => console.log('[SERVER] register - ' + data));
         });
     };
 

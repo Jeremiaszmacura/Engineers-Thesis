@@ -1,4 +1,4 @@
-const { User, Exam } = require("../models");
+const { User, Exam, Question, AvaliableAnswer, Response, Answer } = require("../models");
 
 
 const convertDateFormatHtmlToDb = (date) => {
@@ -56,7 +56,7 @@ const examCreatePost = async (req, res) => {
 };
 
 
-const ExamGet = async (req, res) => {
+const examGet = async (req, res) => {
     try {
         const exam = await Exam.findOne({ 
             where: { uuid: req.params.uuid },
@@ -70,7 +70,7 @@ const ExamGet = async (req, res) => {
 };
 
 
-const ExamDelete = async (req, res) => {
+const examDelete = async (req, res) => {
     try {
         const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
         await exam.destroy();
@@ -82,7 +82,7 @@ const ExamDelete = async (req, res) => {
 };
 
 
-const ExamUpdate = async (req, res) => {
+const examUpdate = async (req, res) => {
     try {
         const { title, startsAt, endsAt, description } = req.body
         const exam = await Exam.findOne({ where: { uuid: req.params.uuid } });
@@ -91,6 +91,21 @@ const ExamUpdate = async (req, res) => {
         if (endsAt) { exam.endsAt = endsAt; };
         if (description) { exam.description = description; };
         await exam.save();
+        return res.status(200).json(exam);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
+};
+
+
+const examByAccessCodeGet = async (req, res) => {
+    try {
+        sendAccessCode = req.body.accessCode.replace(/\s/g, '');
+        const exam = await Exam.findOne({ 
+            where: { accessCode: sendAccessCode }
+        });
+        if(!exam) return res.json("Not found any test with access code like: " + sendAccessCode);
         return res.json(exam);
     } catch (err) {
         console.log(err);
@@ -99,13 +114,50 @@ const ExamUpdate = async (req, res) => {
 };
 
 
-const ExamAndQuestionsByAccessCodeGet = async (req, res) => {
+const solveExamGet = async (req, res) => {
     try {
-        const examAndQuestions = await Exam.findOne({ 
-            where: { accessCode: req.body.accessCode }, 
-            include: 'questions' 
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid },
+            include: { 
+                model: Question, 
+                as: 'questions',
+                include: { 
+                    model: AvaliableAnswer, 
+                    as: 'avaliableanswers', 
+                    attributes: ['answer', 'uuid'] 
+                } 
+            }
         });
-        return res.json(examAndQuestions);
+    
+        await exam.questions.forEach(question => {
+            if (question['type'] === 'open') delete question.avaliableanswers;
+        });
+    
+        currentDate = new Date()
+        currentDate.setTime( currentDate.getTime() - new Date().getTimezoneOffset()*60*1000 ); 
+    
+        const valid = exam.startsAt < currentDate && exam.endsAt > currentDate
+        if (valid) res.json(exam);
+        else res.json('Exam is not available now. Check "Starts at" and "Ends at" date');  
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
+    
+};
+
+
+const examAvailabilityGet = async (req, res) => {
+    try {
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid }
+        });
+        currentDate = new Date()
+        currentDate.setTime( currentDate.getTime() - new Date().getTimezoneOffset()*60*1000 ); 
+
+        const valid = exam.startsAt < currentDate && exam.endsAt > currentDate
+        if (valid) res.json('Exam avaiable');
+        else res.json('Exam is not available now. Check "Starts at" and "Ends at" date')
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: 'Something went wrong' });
@@ -113,12 +165,65 @@ const ExamAndQuestionsByAccessCodeGet = async (req, res) => {
 };
 
 
+const solveExamPost = async (req, res) => {
+    const testTakerName = req.body.name;
+    const answers = req.body.answers;
+    let answerToSave = "";
+    let answerObjectToSave = [];
+
+    try {
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid },
+            include:  { all: true, nested: true }
+        });
+    
+        const response = await Response.create({ 
+            name: testTakerName,
+            examId: exam.id
+        }); 
+    
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i+1] && answers[i].questionUuid === answers[i+1].questionUuid) {
+                answerToSave = answerToSave + String(answers[i].answer) + "$";
+            } else {
+                answerToSave = answerToSave + String(answers[i].answer) + "$";
+                answerObjectToSave.push(
+                    {
+                        "questionUuid": answers[i].questionUuid, 
+                        "answer": answerToSave
+                    }
+                )
+                answerToSave = "";
+            }  
+        }
+    
+        answerObjectToSave.forEach(async (answer) => {
+            const question = await Question.findOne({ where: { uuid: answer.questionUuid } });
+            Answer.create({
+                answer: answer.answer,
+                responseId: response.id,
+                questionId: question.id
+            });
+        });
+
+        res.json("Test solution has been successfully submitted");
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
+    
+};
+
+
 module.exports = {
     allExamsGet,
     myExamsGet,
     examCreatePost,
-    ExamGet,
-    ExamDelete,
-    ExamUpdate, 
-    ExamAndQuestionsByAccessCodeGet
+    examGet,
+    examDelete,
+    examUpdate, 
+    examByAccessCodeGet,
+    solveExamGet,
+    examAvailabilityGet,
+    solveExamPost
 };

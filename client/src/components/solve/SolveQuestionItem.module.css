@@ -1,0 +1,124 @@
+.item2 {
+    margin: 1rem 0;
+  }
+  
+  .image {
+    width: 100%;
+    height: 20rem;
+    overflow: hidden;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  
+  .image img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .content {
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+  
+  .content h3 {
+    font-size: 1.25rem;
+    color: #2c292b;
+  }
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .element {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: left;
+  }
+  
+  .actions2 {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  
+  .actions2 button {
+    font: inherit;
+    cursor: pointer;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    border-width: 2px;
+    margin: 0 1em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .actions2 button:hover,
+  .actions2 button:active {
+    background-color: #a50e48;
+    border-color: #a50e48;
+  }
+
+  .list {
+    list-style: none;
+    margin: 0;
+    padding-top: 1em;
+  }
+
+  .form {
+    padding: 1rem;
+  }
+  
+  .control {
+    padding-top: 1em;
+    margin-bottom: 0.5rem;
+  }
+  
+  .control label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .control input,
+  .control textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .control select {
+    font-size: 1em;
+    color: white;
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    border-color: white;
+    border-radius: 5px;
+    background-color: #00185a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+.valiableAnswers {
+  display: flex;
+  justify-content: left;
+  padding: 1em 2em;
+}
+
+.selectbox {
+  margin-left: 1em;
+  font-size: 1em;
+  color: white;
+  padding: 1px 4px;
+  border-color: white;
+  border-radius: 5px;
+  background-color: #00185a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}

@@ -20,6 +20,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      value: { 
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+      },
       examId: {
         type: DataTypes.INTEGER,
         allowNull: false,

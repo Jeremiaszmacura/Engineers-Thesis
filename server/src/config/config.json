@@ -12,7 +12,7 @@
     "password": "postgres",
     "database": "maknowledge_test_db",
     "host": "localhost",
-    "port": "5432",
+    "port": "54322",
     "dialect": "postgres"
   },
   "production": {
@@ -20,7 +20,7 @@
     "password": "postgres",
     "database": "maknowledge_production_db",
     "host": "localhost",
-    "port": "5432",
+    "port": "543222",
     "dialect": "postgres"
   }
 }

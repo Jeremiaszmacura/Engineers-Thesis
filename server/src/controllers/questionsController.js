@@ -1,4 +1,4 @@
-const { User, Exam, Question, ValiableAnswer } = require("../models");
+const { User, Exam, Question, AvaliableAnswer } = require("../models");
 
 
 const createQuestionPost = async (req, res) => {
@@ -13,10 +13,10 @@ const createQuestionPost = async (req, res) => {
             examId: exam.id
         });
 
-        req.body.valiableAnswers.forEach(async valiableAnswer => {
-            const isCorrect = (valiableAnswer.isCorrect === "true");
-            await  ValiableAnswer.create({
-                answer: valiableAnswer.answer,
+        req.body.avaliableAnswers.forEach(async avaliableAnswer => {
+            const isCorrect = (avaliableAnswer.isCorrect === "true");
+            await AvaliableAnswer.create({
+                answer: avaliableAnswer.answer,
                 isCorrect: isCorrect,
                 questionId: question.id
             });
@@ -31,6 +31,19 @@ const createQuestionPost = async (req, res) => {
 };
 
 
+const deleteQuestionPost = async (req, res) => {
+    try {
+        const question = await Question.findOne({ where: { uuid: req.params.uuid } });
+        await question.destroy();
+        return res.status(200).json({ message: 'Question has been successfully deleted' });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Something went wrong' });
+    };
+};
+
+
 module.exports = {
-    createQuestionPost
+    createQuestionPost,
+    deleteQuestionPost
 };

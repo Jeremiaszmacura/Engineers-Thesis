@@ -31,6 +31,14 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      pointsToGet: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      showScore: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
