@@ -38,7 +38,7 @@ const MainNavigation = () => {
                     {user ? ( 
                         <>
                         <li>
-                            <Link to='/create-exam'>Creat Exam</Link>
+                            <Link to='/create-exam'>Create Exam</Link>
                         </li>
                         <li>
                                 <Link to='/my-exams'>My Exams</Link>

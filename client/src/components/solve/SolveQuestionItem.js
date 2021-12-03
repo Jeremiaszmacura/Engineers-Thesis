@@ -64,7 +64,7 @@ const SolveQuestionItem = (props) => {
                         <div className={styles.control}>
                         <label htmlFor={props.uuid}>Answer: </label>
                             <select id={props.uuid} name={props.avaliableanswers[0].uuid}>
-                                <option defaultValue value="flase">false</option>
+                                <option defaultValue value="false">false</option>
                                 <option value="true">true</option>
                             </select>
                         </div>

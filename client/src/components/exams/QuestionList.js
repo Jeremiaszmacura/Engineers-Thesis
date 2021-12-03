@@ -11,6 +11,7 @@ const QuestionList = (props) => {
                 uuid={question.uuid} 
                 question={question.question}
                 type={question.type}
+                value={question.value}
                 avaliableanswers={question.avaliableanswers}
                 />
             ))} 

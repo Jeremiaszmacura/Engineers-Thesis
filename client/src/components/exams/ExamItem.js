@@ -51,6 +51,11 @@ const ExamItem = (props) => {
                                 <p>{props.description}</p>
                             </div>
                             <div className={styles.element}>
+                                <p className={styles.title}>Points To Get: </p>
+                                <p>{props.pointsToGet}</p>
+                            </div>
+                            
+                            <div className={styles.element}>
                                 <p className={styles.title}>Exam Access Code: </p>
                                 <p>{props.accessCode}</p>
                             </div>

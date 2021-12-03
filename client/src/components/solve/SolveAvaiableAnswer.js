@@ -12,7 +12,7 @@ const SolveAvaiableAnswer = (props) => {
         <div className={styles.valiableAnswers} >
             <label htmlFor={props.uuid}>{count_ordinal_letter(props.index)} {props.answer}</label>
             <select className={styles.selectbox} id={props.questionUuid} name={props.uuid}>
-                <option defaultValue value="flase">false</option>
+                <option defaultValue value="false">false</option>
                 <option value="true">true</option>
             </select>
         </div>

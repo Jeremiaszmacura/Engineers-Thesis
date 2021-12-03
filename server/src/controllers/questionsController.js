@@ -1,15 +1,14 @@
-const { User, Exam, Question, AvaliableAnswer } = require("../models");
+const { Exam, Question, AvaliableAnswer } = require("../models");
 
 
 const createQuestionPost = async (req, res) => {
     try {
-        const user = await User.findOne({ where: { uuid: req.user.uuid } });
-
         const exam = await Exam.findOne({ where: { uuid: req.params.uuid } })
 
         const question = await Question.create({ 
             question: req.body.question,
             type: req.body.type,
+            value: req.body.value,
             examId: exam.id
         });
 
@@ -21,6 +20,9 @@ const createQuestionPost = async (req, res) => {
                 questionId: question.id
             });
         });
+
+        exam.pointsToGet = exam.pointsToGet + Number(req.body.value);
+        await exam.save();
 
     } catch (err) {
         console.log(err);
@@ -34,7 +36,13 @@ const createQuestionPost = async (req, res) => {
 const deleteQuestionPost = async (req, res) => {
     try {
         const question = await Question.findOne({ where: { uuid: req.params.uuid } });
+        const exam = await Exam.findOne({ where: { id: question.examId } })
+
+        exam.pointsToGet = exam.pointsToGet - Number(question.value);
+
+        await exam.save();
         await question.destroy();
+
         return res.status(200).json({ message: 'Question has been successfully deleted' });
     } catch (err) {
         console.log(err);

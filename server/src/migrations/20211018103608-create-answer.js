@@ -16,6 +16,22 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      questionContent: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      questionType: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      avaiableAnswersContent: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      avaiableAnswersCorrectness: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       responseId: {
         type: DataTypes.INTEGER,
         allowNull: false,

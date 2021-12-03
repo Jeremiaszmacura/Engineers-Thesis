@@ -48,6 +48,10 @@ const QuestionItem = (props) => {
                                 <p className={styles.title}>Type: </p>
                                 <p>{props.type}</p>
                             </div>
+                            <div className={styles.element}>
+                                <p className={styles.title}>Value: </p>
+                                <p>{props.value}</p>
+                            </div>
                             {showAvaiableAnswers ? (
                                 <>
                                 {props.avaliableanswers.map((avaliableanswer) => (

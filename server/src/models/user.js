@@ -53,9 +53,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Password must not be empty." }
       }
     },
-    refreshToken: {
-      type: DataTypes.STRING
-    },
     role: {
       type: DataTypes.STRING,
       allowNull: false,

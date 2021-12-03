@@ -12,7 +12,8 @@ const SolveExamPage = () => {
     const { handle } = useParams(); // Handle params from URL
 
     const [isLoading, setIsLoading] = useState(true); // Waiting to fetch data form server
-    const [sendSovledExam, setSendSovledExam] = useState(false); // Waiting to fetch data form server
+    const [sendSovledExam, setSendSovledExam] = useState(false); // Waiting to fetch data form server - contain message
+    const [SolutionScore, setSolutionScore] = useState(false); // Waiting to fetch data form server - contain score
     const [loadedExam, setLoadedExam] = useState(null); // Loaded Exams
     const [loadedQuestions, setLoadedQuestions] = useState([]); // Loaded Questions
 
@@ -72,7 +73,6 @@ const SolveExamPage = () => {
             );
         }
         const solvedExamJson = JSON.stringify({"name": examTakerId,"answers": solvedExam})
-        console.log(solvedExamJson)
 
         fetch(
             `http://localhost:4000/exams/solve/${enteredExamUuid}`,
@@ -91,7 +91,10 @@ const SolveExamPage = () => {
             } else {
                 console.log('[CLIENT] submit solve exam - fetch NOT successful');
             }
-            res.json().then(data => setSendSovledExam(data));
+            res.json().then(data => {
+                setSendSovledExam(data.message);
+                if (data.score || data.score === 0) setSolutionScore(String(data.score)); // To string in case the result was 0
+            });
         });
 
     };
@@ -121,7 +124,14 @@ const SolveExamPage = () => {
                     <div className={styles.content}>
                         <h2 className={styles.title}>{sendSovledExam}</h2>
                     </div>
-            </Card>
+                    {SolutionScore ? (
+                        <>
+                        <div className={styles.content}>
+                            <h2 className={styles.title}>Your score: {SolutionScore}</h2>
+                        </div>
+                        </>
+                    ) : (null)}
+                </Card>
             </section>
         )
     }

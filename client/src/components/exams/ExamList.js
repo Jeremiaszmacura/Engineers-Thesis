@@ -14,6 +14,7 @@ const ExamList = (props) => {
                 endsAt={exam.endsAt}
                 description={exam.description} 
                 accessCode={exam.accessCode}
+                pointsToGet={exam.pointsToGet}
                 />
             ))} 
         </ul>

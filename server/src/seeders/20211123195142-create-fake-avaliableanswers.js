@@ -33,7 +33,7 @@ module.exports = {
         {
           uuid: "8e4af445-c317-4894-9d0c-a83dd666c231",
           answer: "true",
-          isCorrect: true,
+          isCorrect: false,
           questionId: "2",
           updatedAt: new Date(),
           createdAt: new Date()
@@ -41,7 +41,7 @@ module.exports = {
         {
           uuid: "c1c0388b-35c5-422a-9072-abab5f47a352",
           answer: "false",
-          isCorrect: false,
+          isCorrect: true,
           questionId: "2",
           updatedAt: new Date(),
           createdAt: new Date()

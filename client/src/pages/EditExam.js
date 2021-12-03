@@ -23,6 +23,7 @@ const EditExamPage = () => {
 
     const questionInputRef = useRef();
     const typeInputRef = useRef();
+    const valueInputRef = useRef();
     const numberOfAvaliableAnswersInputRef = useRef();
 
     const history = useHistory();
@@ -98,12 +99,13 @@ const EditExamPage = () => {
 
         const enteredQuestionInputRef = questionInputRef.current.value;
         const enteredTypeInputRef = typeInputRef.current.value;
+        const enteredValueInputRef = valueInputRef.current.value;
         const avaliableAnswers = [];
         const eventTargetLength = event.target.length
 
         if (enteredTypeInputRef === "open") {
             const answerItem = {
-                answer: event.target[2].value,
+                answer: enteredQuestionInputRef,
                 isCorrect: "true"
             }
             avaliableAnswers.push(answerItem)
@@ -117,43 +119,43 @@ const EditExamPage = () => {
         }
         if (eventTargetLength > 5) {
             const answerItem = {
-                answer: event.target[3].value,
-                isCorrect: event.target[4].value
+                answer: event.target[4].value,
+                isCorrect: event.target[5].value
             }
             avaliableAnswers.push(answerItem)
         }
-        if (eventTargetLength > 6) {
+        if (eventTargetLength > 7) {
             const answerItem = {
-                answer: event.target[5].value,
-                isCorrect: event.target[6].value
+                answer: event.target[6].value,
+                isCorrect: event.target[7].value
             }
             avaliableAnswers.push(answerItem)
         }
-        if (eventTargetLength > 8) {
+        if (eventTargetLength > 9) {
             const answerItem = {
-                answer: event.target[7].value,
-                isCorrect: event.target[8].value
+                answer: event.target[8].value,
+                isCorrect: event.target[9].value
             }
             avaliableAnswers.push(answerItem)
         }
-        if (eventTargetLength > 10) {
+        if (eventTargetLength > 11) {
             const answerItem = {
-                answer: event.target[9].value,
-                isCorrect: event.target[10].value
+                answer: event.target[10].value,
+                isCorrect: event.target[11].value
             }
             avaliableAnswers.push(answerItem)
         }
-        if (eventTargetLength > 12) {
+        if (eventTargetLength > 13) {
             const answerItem = {
-                answer: event.target[11].value,
-                isCorrect: event.target[12].value
+                answer: event.target[12].value,
+                isCorrect: event.target[13].value
             }
             avaliableAnswers.push(answerItem)
         }
-        if (eventTargetLength > 14) {
+        if (eventTargetLength > 15) {
             const answerItem = {
-                answer: event.target[13].value,
-                isCorrect: event.target[14].value
+                answer: event.target[14].value,
+                isCorrect: event.target[15].value
             }
             avaliableAnswers.push(answerItem)
         }
@@ -162,6 +164,7 @@ const EditExamPage = () => {
         const createdQuestion = {
             question: enteredQuestionInputRef,
             type: enteredTypeInputRef,
+            value: enteredValueInputRef,
             avaliableAnswers: avaliableAnswers
         };    
 
@@ -278,6 +281,10 @@ const EditExamPage = () => {
                         <p>{loadedExam.description}</p>
                     </div>
                     <div className={styles.element}>
+                        <p className={styles.title}>Points To Get: </p>
+                        <p>{loadedExam.pointsToGet}</p>
+                    </div>
+                    <div className={styles.element}>
                         <p className={styles.title}>Exam Access Code: </p>
                         <p>{loadedExam.accessCode}</p>
                     </div>
@@ -311,7 +318,22 @@ const EditExamPage = () => {
                                 <textarea onKeyDown={handleKeyDown} type='text' required id='question' ref={questionInputRef} />
                             </div>
                             <div className={styles.control}>
-                                <label htmlFor='newPassword'>type</label>
+                                <label htmlFor='pointsToGet'>value - points to get </label>
+                                <select ref={valueInputRef}>
+                                    <option defaultValue value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div className={styles.control}>
+                                <label htmlFor='typeOfQuestion'>type</label>
                                 <select ref={typeInputRef} onChange={changeQuestionType}>
                                     <option defaultValue value="singleChoice">Signle Choice</option>
                                     <option value="multipleChoice">Multiple Choice</option>
@@ -342,7 +364,7 @@ const EditExamPage = () => {
                                                     <textarea onKeyDown={handleKeyDown} type='text' required id={"answer"+i}/>
                                                     <label htmlFor='isCorrect'>Is Correct</label>
                                                     <select>
-                                                        <option defaultValue value="flase">false</option>
+                                                        <option defaultValue value="false">false</option>
                                                         <option value="true">true</option>
                                                     </select>
                                                 </div>
@@ -375,7 +397,7 @@ const EditExamPage = () => {
                                                 <textarea onKeyDown={handleKeyDown} type='text' required id={"answer"+i}/>
                                                 <label htmlFor='isCorrect'>Is Correct</label>
                                                 <select>
-                                                    <option defaultValue value="flase">false</option>
+                                                    <option defaultValue value="false">false</option>
                                                     <option value="true">true</option>
                                                 </select>
                                             </div>
@@ -402,7 +424,7 @@ const EditExamPage = () => {
                                             <div className={styles.answers}>
                                                 <label htmlFor='isCorrect'>Correct Answer</label>
                                                 <select>
-                                                    <option defaultValue value="flase">false</option>
+                                                    <option defaultValue value="false">false</option>
                                                     <option value="true">true</option>
                                                 </select>
                                             </div>
