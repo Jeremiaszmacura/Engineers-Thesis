@@ -13,6 +13,7 @@ const QuestionList = (props) => {
                 type={question.type}
                 value={question.value}
                 avaliableanswers={question.avaliableanswers}
+                aresoltuions={question.areSoltuions}
                 />
             ))} 
         </ul>

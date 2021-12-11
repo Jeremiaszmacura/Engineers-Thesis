@@ -250,10 +250,6 @@ const solveExamPost = async (req, res) => {
             const question = await Question.findOne({ where: { uuid: answer.questionUuid } });
             const answerDbObject = Answer.create({
                 answer: answer.answer,
-                questionContent: question.question,
-                questionType: question.type,
-                avaiableAnswersContent: answer.avaiableAnswersContent,
-                avaiableAnswersCorrectness: answer.avaiableAnswersCorrectness,
                 responseId: response.id,
                 questionId: question.id
             });
@@ -275,6 +271,90 @@ const solveExamPost = async (req, res) => {
 };
 
 
+const examShowResponsesGet = async (req, res) => {
+    try {
+
+        const examWithResponses = {};
+
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid }
+        });
+
+        const responses = await Response.findAll({
+            where: { examId: exam.id }
+        });
+
+        examWithResponses["exam"] = exam;
+        examWithResponses["responses"] = responses;
+
+        return res.json(examWithResponses);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Something went wrong" });
+    };
+};
+
+
+const examGeneralReportGet = async (req, res) => {
+    try {
+        let generalReport = {};
+        
+        const exam = await Exam.findOne({ 
+            where: { uuid: req.params.uuid }
+        });
+
+        const questions = await Question.findAll({
+            where: { examId: exam.id }
+        });
+
+        const responses = await Response.findAll({
+            where: { examId: exam.id }
+        });
+
+        let averageScore = 0;
+        let averageScoreCount = 0;
+        responses.forEach(response => {
+            averageScore += response.score;
+            averageScoreCount += 1;
+        });
+        averageScore = averageScore/averageScoreCount;
+
+        let questionsToSend = [];
+        for (let i = 0; i < questions.length; i++) {
+            const objectToSave = {
+                "question": questions[i].question,
+                "type": questions[i].type,
+                "value": questions[i].value
+            };
+            questionsToSend.push(objectToSave);
+        };
+
+        let responsesToSend = [];
+        for (let i = 0; i < responses.length; i++) {
+            const objectToSave = {
+                "name": responses[i].name,
+                "score": responses[i].score
+            };
+            responsesToSend.push(objectToSave);
+        };
+
+        generalReport["title"] = exam.title;
+        generalReport["description"] = exam.description;
+        generalReport["pointsToGet"] = exam.pointsToGet;
+        generalReport["startsAt"] = exam.startsAt;
+        generalReport["endsAt"] = exam.endsAt;
+        generalReport["averageScore"] = averageScore;
+        generalReport["questions"] = questionsToSend;
+        generalReport["responses"] = responsesToSend;
+
+        return res.json(generalReport);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Something went wrong" });
+    };
+};
+
+
 module.exports = {
     allExamsGet,
     myExamsGet,
@@ -285,5 +365,7 @@ module.exports = {
     examByAccessCodeGet,
     solveExamGet,
     examAvailabilityGet,
-    solveExamPost
+    solveExamPost,
+    examShowResponsesGet,
+    examGeneralReportGet
 };

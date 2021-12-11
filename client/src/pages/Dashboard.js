@@ -79,7 +79,7 @@ const DashboardPage = () => {
                         </div>
                     </Card>
                     <div className={styles.buttons}>
-                        <Link to='/my-exams'><button>My Exams</button></Link>
+                        <Link to='/my-exams'><button>My Tests</button></Link>
                         <button onClick={setChangePassword}>Change Password</button>
                     </div>
                     {changePassword ? (
@@ -94,7 +94,7 @@ const DashboardPage = () => {
                     <Card>
                         <form className={styles.form} onSubmit={submitHandler}>
                             <div className={styles.control}>
-                                <label htmlFor='oldPassword'>Old Password</label>
+                                <label htmlFor='oldPassword'>Current Password</label>
                                 <input type='password' required id='oldPassword' ref={oldPasswordInputRef} />
                             </div>
                             <div className={styles.control}>

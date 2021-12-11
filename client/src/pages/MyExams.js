@@ -68,7 +68,7 @@ const MyExamsPage = () => {
                         <Card>
                             <h2 className={styles.title}>You do not have any created tests yet</h2>
                             <p className={styles.description}>
-                                To create test go to "Create Exam" section...
+                                To create test go to "Create Test" section...
                             </p>
                         </Card>
                     </div>

@@ -1,70 +1,71 @@
 .item {
-    margin: 1rem 0;
-  }
-  
-  .image {
-    width: 100%;
-    height: 20rem;
-    overflow: hidden;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-  }
-  
-  .image img {
-    width: 100%;
-    object-fit: cover;
-  }
-  
-  .content {
-    text-align: center;
-    padding: 1rem;
-  }
-  
-  .content h3 {
-    font-size: 1.25rem;
-    color: #2c292b;
-  }
+  margin: 1rem 0;
+}
 
-  .title {
-    font-weight: bold;
-    text-align: center;
-  }
+.image {
+  width: 100%;
+  height: 20rem;
+  overflow: hidden;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
 
-  .element {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    text-align: left;
-  }
-  
-  .actions {
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    text-align: center;
-  }
+.image img {
+  width: 100%;
+  object-fit: cover;
+}
 
-  .actions2 {
-    text-align: center;
-  }
-  
-  .actions button {
-    font: inherit;
-    cursor: pointer;
-    color: white;
-    border: 1px solid #00185a;
-    background-color: #00185a;
-    /* background-color: transparent; */
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    font-weight: bold;
-    border-width: 2px;
-    margin: 0 1em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  }
-  
-  .actions button:hover,
-  .actions button:active {
-    background-color: #a50e48;
-    border-color: #a50e48;
-  }
+.content {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1em;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+  color: #2c292b;
+}
+
+.title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.element {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: left;
+}
+
+.actions {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.actions2 {
+  text-align: center;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  color: white;
+  border: 1px solid #00185a;
+  background-color: #00185a;
+  /* background-color: transparent; */
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  border-width: 2px;
+  margin: 0 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #a50e48;
+  border-color: #a50e48;
+}
 
 .manage {
     padding-bottom: 2em;

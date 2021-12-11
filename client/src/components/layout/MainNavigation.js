@@ -33,19 +33,19 @@ const MainNavigation = () => {
             <nav>
                 <ul>
                     <li>
-                        <Link to='/'>Home Page</Link>
+                        <Link to='/'>Home</Link>
                     </li>
                     {user ? ( 
                         <>
                         <li>
-                            <Link to='/create-exam'>Create Exam</Link>
+                            <Link to='/create-exam'>Create Test</Link>
                         </li>
                         <li>
-                                <Link to='/my-exams'>My Exams</Link>
+                                <Link to='/my-exams'>My Tests</Link>
                             </li>
                         {admin ? (
                             <li>
-                                <Link to='/all-exams'>All Exams</Link>
+                                <Link to='/all-exams'>All Tests</Link>
                             </li>
                         ) : false }
                         <li>

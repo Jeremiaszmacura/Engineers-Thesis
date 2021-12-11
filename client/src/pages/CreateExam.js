@@ -23,7 +23,7 @@ const CreateExamPage = () => {
 
     return (
         <section>
-            <h1>Create Exam</h1>
+            <h1>Create Test</h1>
             <CreateExamForm onCreateExam={createExamHandler} />
         </section>
     );
