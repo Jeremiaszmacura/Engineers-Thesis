@@ -9,10 +9,12 @@ import CreateExamForm from "../components/exams/CreateExamForm";
 
 const EditExamPage = () => {
     const { handle } = useParams(); // Handle params from URL
-    const [loadedExam, setLoadedExam] = useState(null); // Loaded Exams
+    const [loadedExam, setLoadedExam] = useState(null); // Loaded Exam
     const [loadedQuestions, setLoadedQuestions] = useState([]); // Loaded Questions
     const [addQuestion, setAddQuestion] = useState(false); // Add Question - display form
     const [editExam, setEditExam] = useState(false); // Edit Exam - display form
+    const [answersToExam, setAnswersToExam] = useState(false); // Block editing exam if there are any answer to it
+    const [showAnswersError, setShowAnswersError] = useState(false);
 
     const [singleChoiceQuestion, setSingleChoiceQuestion] = useState(true); // Set Question Type
     const [multipleChoiceQuestion, setMultipleChoiceQuestion] = useState(false); // Set Question Type
@@ -50,6 +52,9 @@ const EditExamPage = () => {
         ).then((response) => {
             return response.json();
         }).then((exam) => {
+            // if there is any response/answer, then exam cannot be edited
+            if (exam.questions[0].answers[0]) setAnswersToExam(true);
+            else setAnswersToExam(false);
             prepareDateTimeFormat(exam);
             setLoadedExam(exam);
             const questions = [];
@@ -59,6 +64,7 @@ const EditExamPage = () => {
                     id: key,
                     ...exam.questions[key]
                 };
+                question.areSoltuions = answersToExam;
 
                 questions.push(question);
             }
@@ -66,7 +72,7 @@ const EditExamPage = () => {
             setIsLoading(false);
         });
         
-    }, [handle]);
+    }, [handle, answersToExam]);
 
     const deleteExam = (event) => {
         event.preventDefault();
@@ -85,6 +91,12 @@ const EditExamPage = () => {
             }
             res.json().then(data => console.log('[SERVER] delete exam - '+data));
         });
+    };
+
+    const showSolutions = (event) => {
+        event.preventDefault();
+        if(answersToExam) history.push(`/show-responses/${loadedExam.uuid}`);
+        else setShowAnswersError("There are no responses to your test yet")
     };
 
     const handleKeyDown = (e) => {
@@ -197,7 +209,6 @@ const EditExamPage = () => {
     };
 
     const editExamHandler = (examData) => {
-        console.log(examData)
         fetch(
             'http://localhost:4000/exams/' + loadedExam.uuid,
             {
@@ -261,8 +272,8 @@ const EditExamPage = () => {
     return (
         <div className={styles.page}>
 
-            <h1>Edit Exam</h1>
-                <Card>
+            <h1>Edit Test</h1>
+            <Card>
                 <div className={styles.content}>
                     <div className={styles.element}>
                         <h2 className={styles.title}>Title: </h2>
@@ -290,9 +301,20 @@ const EditExamPage = () => {
                     </div>
                 </div>
                 <div className={styles.actions}>
-                    <button onClick={editExamSwitch}>Edit</button>
+                    {!answersToExam ? (
+                        <button onClick={editExamSwitch}>Edit</button>
+                    ) : (null)}
+                    <button onClick={showSolutions}>Show answers</button>
                     <button onClick={deleteExam}>Delete</button>
                 </div>
+            </Card>
+            
+            <Card> 
+                {showAnswersError && 
+                    <div className={styles.content}>
+                        <p className={styles.title}>{showAnswersError}</p>
+                    </div>
+                }
             </Card>
 
             {editExam ? (
@@ -301,11 +323,21 @@ const EditExamPage = () => {
                 </>
             ) : (null)}
 
-            <h1>Manage Questions</h1>
+            {!answersToExam ? (
+                <h1>Manage Questions</h1>
+            ) : (
+                <h1>Questions</h1>
+            )}
+            
 
-            <div className={styles.manage}>
-                <button onClick={addingQuestionSwitch}>Add Question</button>
-            </div>
+            {!answersToExam ? (
+                <>
+                    <div className={styles.manage}>
+                        <button onClick={addingQuestionSwitch}>Add Question</button>
+                    </div>
+                </>
+            ) : (null)}
+            
 
             {addQuestion ? (
                 <>

@@ -38,6 +38,7 @@ const QuestionItem = (props) => {
         <ul className={styles.list}>
             {deletedItem ? (null) : (
                 <>
+                <div className={styles.questionitem}>
                     <Card>
                         <div className={styles.content}>
                             <div className={styles.element}>
@@ -67,11 +68,13 @@ const QuestionItem = (props) => {
                             
                         </div>
                         <div className={styles.actions2}>
-                            <button onClick={showAvailableAnswersSwitch}>Avaiable answers</button>
+                            <button onClick={showAvailableAnswersSwitch}>Available answers</button>
+                            {!props.aresoltuions ? (
                             <button onClick={deleteQuestion}>Delete</button>
+                            ) : (null)}
                         </div>
                     </Card>
-                    
+                </div>
                 </>
             )}
         </ul>

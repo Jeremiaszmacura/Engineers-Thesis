@@ -1,0 +1,25 @@
+.content {
+    text-align: center;
+  }
+  
+  .content h3 {
+    font-size: 1em;
+    color: #2c292b;
+  }
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .element {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: left;
+    margin-bottom: 1em;
+  }
+
+  li {
+    list-style: none;
+  }
+  

@@ -28,13 +28,13 @@ const HelpPage = () => {
                 <Card>
                     <h2 className={styles.title}>How to create test</h2>
                     <p className={styles.description}>
-                        At first click "Create Exam" button on the top navbar.
-                        Then You will be asked to set Exam name, time to do tasks and description.
-                        After that click "Submit" button. You will be redirected to "Exam Details" page.
-                        In that page You are able to create tasks for Your Exam by clicking "Create Question".
+                        At first click "Create Test" button on the top navbar.
+                        Then You will be asked to set Test name, time to do tasks and description.
+                        After that click "Submit" button. You will be redirected to "Test Details" page.
+                        In that page You are able to create tasks for Your Test by clicking "Create Question".
                         In tasks creator You write question for this task, possible answers and select
                         right answer for this question. After filling in the form and clinking "Submit", tast will
-                        be created. You can see it now in Exam details page.
+                        be created. You can see it now in Test details page.
                     </p>
                 </Card>
             </div>

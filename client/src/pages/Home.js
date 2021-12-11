@@ -24,7 +24,7 @@ const HomePage = () => {
             <Card>
                 <form className={styles.form} onSubmit={submitHandler}>
                     <div className={styles.control}>   
-                        <label htmlFor='accessCode'>Pass Test's Access Code</label>
+                        <label htmlFor='accessCode'>Pass Test Access Code</label>
                         <input type='text' placeholder='code...' required id='accessCode' ref={examCodeInputRef} />
                     </div>
                     <div className={styles.actions}>

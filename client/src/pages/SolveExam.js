@@ -138,7 +138,7 @@ const SolveExamPage = () => {
 
     return (
         <section>
-            <h2>Exam:</h2>
+            <h2>Test:</h2>
             <Card>
                 <div className={styles.content}>
                     <div className={styles.element}>
@@ -158,7 +158,7 @@ const SolveExamPage = () => {
                         <p>{loadedExam.description}</p>
                     </div>
                     <div className={styles.element}>
-                        <p className={styles.title}>Exam Access Code: </p>
+                        <p className={styles.title}>Test Access Code: </p>
                         <p>{loadedExam.accessCode}</p>
                     </div>
                 </div>

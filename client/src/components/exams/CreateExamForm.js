@@ -31,7 +31,7 @@ const CreateExamForm = (props) => {
         <Card>
             <form className={styles.form} onSubmit={submitHandler}>
                 <div className={styles.control}>
-                    <label htmlFor='title'>Exam Title</label>
+                    <label htmlFor='title'>Test Title</label>
                     <input type='text' required id='title' ref={titleInputRef} />
                 </div>
                 <div className={styles.control}>
@@ -47,7 +47,7 @@ const CreateExamForm = (props) => {
                     <textarea id='description' required rows='5' ref={DescriptionInputRef} />
                 </div>
                 <div className={styles.actions}>
-                    <button>Create Exam</button>
+                    <button>Create Test</button>
                 </div>
             </form>
         </Card>

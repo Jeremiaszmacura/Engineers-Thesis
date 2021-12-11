@@ -56,7 +56,7 @@ const ExamItem = (props) => {
                             </div>
                             
                             <div className={styles.element}>
-                                <p className={styles.title}>Exam Access Code: </p>
+                                <p className={styles.title}>Test Access Code: </p>
                                 <p>{props.accessCode}</p>
                             </div>
                         </div>

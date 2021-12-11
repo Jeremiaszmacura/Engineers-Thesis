@@ -55,8 +55,6 @@ const SolveExamPage = () => {
     }, [handle]);
 
     const startExamHandler = () => {
-        
-
         fetch(
             `http://localhost:4000/exams/solve-availability/${loadedExam.uuid}`,
             {
@@ -101,7 +99,7 @@ const SolveExamPage = () => {
                         <p>{loadedExam.description}</p>
                     </div>
                     <div className={styles.element}>
-                        <p className={styles.title}>Exam Access Code: </p>
+                        <p className={styles.title}>Test Access Code: </p>
                         <p>{loadedExam.accessCode}</p>
                     </div>
                 </div>
