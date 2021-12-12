@@ -1,5 +1,6 @@
 /* eslint-disable curly */
 const { User, Exam, Question, AvaliableAnswer, Response, Answer } = require("../models");
+const pdfService = require('../services/pdf-service');
 
 
 const convertDateFormatHtmlToDb = (date) => {
@@ -297,10 +298,39 @@ const examShowResponsesGet = async (req, res) => {
 
 const examGeneralReportGet = async (req, res) => {
     try {
-        let generalReport = {};
+        const generalReport = await examGenerateReport(req.params.uuid)
+        return res.json(generalReport);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Something went wrong" });
+    };
+};
+
+
+const examGeneralReportPDFGet = async (req, res) => {
+    try {
+        const generalReport = await examGenerateReport(req.params.uuid)
+        const stream = res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment;filename=${generalReport.title}-report.pdf`,
+          });
+          pdfService.buildPDF(
+            generalReport,
+            (chunk) => stream.write(chunk),
+            () => stream.end()
+          );
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Something went wrong" });
+    };
+};
+
+
+const examGenerateReport = async (examUuid) => {
+    let generalReport = {};
         
         const exam = await Exam.findOne({ 
-            where: { uuid: req.params.uuid }
+            where: { uuid: examUuid }
         });
 
         const questions = await Question.findAll({
@@ -347,11 +377,7 @@ const examGeneralReportGet = async (req, res) => {
         generalReport["questions"] = questionsToSend;
         generalReport["responses"] = responsesToSend;
 
-        return res.json(generalReport);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ error: "Something went wrong" });
-    };
+        return generalReport;
 };
 
 
@@ -367,5 +393,6 @@ module.exports = {
     examAvailabilityGet,
     solveExamPost,
     examShowResponsesGet,
-    examGeneralReportGet
+    examGeneralReportGet,
+    examGeneralReportPDFGet
 };

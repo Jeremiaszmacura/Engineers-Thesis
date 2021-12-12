@@ -115,6 +115,18 @@ router.get("/general-report/:uuid", examsController.examGeneralReportGet);
 
 /**
 * @swagger
+* /exams/general-report-pdf/:uuid':
+*  get:
+*    description: Pass Exam's uuid to get general report of this exam in pdf format
+*    responses:
+*      '200':
+*        description: A successful response
+*/
+router.get("/general-report-pdf/:uuid", examsController.examGeneralReportPDFGet);
+
+
+/**
+* @swagger
 * /exams/:uuid':
 *  get:
 *    description: Get Exam with asigned question passing uuid in url params
