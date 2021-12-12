@@ -65,10 +65,15 @@ const HomePage = () => {
                 doc.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
                 }
-                doc.save( 'file.pdf');
+                doc.save(`${loadedExam.exam.title}-report.pdf`);
             });
 
             input.style.width = width;
+    };
+
+    const downloadReportInPDF = (event) => {
+        event.preventDefault();
+        window.open(`http://localhost:4000/exams/general-report-pdf/${handle}`);
     };
 
 
@@ -109,6 +114,7 @@ const HomePage = () => {
 
             <div className={styles.content}>
                 <button onClick={generalReportSwitch}>Show general report</button>
+                <button onClick={downloadReportInPDF}>Download report .pdf</button>
             </div>
 
             <div>
