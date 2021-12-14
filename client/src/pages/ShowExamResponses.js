@@ -41,7 +41,7 @@ const HomePage = () => {
         else setGeneralReport(true);
     };
 
-    const showReportInPDF = () => {
+    const downloadReportToPDFfromHTML = () => {
         const input = document.getElementById("toPDF");
         const width = input.style.width;
         input.style.width = '200mm';
@@ -90,7 +90,7 @@ const HomePage = () => {
             <section>
                 <div className={styles.content}>
                     <button onClick={generalReportSwitch}>Exit general report</button>
-                    <button onClick={showReportInPDF}>Download report .pdf</button>
+                    <button onClick={downloadReportToPDFfromHTML}>Download report .pdf</button>
                     <GeneralReport />
                 </div>
             </section>
