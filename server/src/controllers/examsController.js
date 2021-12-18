@@ -103,7 +103,7 @@ const examUpdate = async (req, res) => {
 
 const examByAccessCodeGet = async (req, res) => {
     try {
-        sendAccessCode = req.body.accessCode.replace(/\s/g, "");
+        const sendAccessCode = req.body.accessCode.replace(/\s/g, "");
         const exam = await Exam.findOne({ 
             where: { accessCode: sendAccessCode }
         });
@@ -144,8 +144,7 @@ const solveExamGet = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: "Something went wrong" });
-    };
-    
+    }; 
 };
 
 
