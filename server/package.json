@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node src/server.js",
     "dev-start": "nodemon src/server.js",
     "lint": "eslint src/server.js",
@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.32.0",
+    "jest": "^27.4.5",
     "nodemon": "^2.0.12",
     "sequelize-cli": "^6.2.0"
   },
