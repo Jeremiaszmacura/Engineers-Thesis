@@ -1,4 +1,4 @@
-FROM node:17-alpine
+FROM node:latest
 
 ENV POSTGRES_DB=maknowledge_development_db \
     POSTGRES_USER=postgres \

@@ -21,8 +21,10 @@ const SolveExamPage = () => {
 
     useEffect(() => {
         // fetch exam from severs
+
         const enteredExamUuid = handle
         setIsLoading(true);
+
         fetch(
             `http://localhost:4000/exams/solve/${enteredExamUuid}`,
             {
@@ -35,16 +37,19 @@ const SolveExamPage = () => {
             prepareDateTimeFormat(exam);
             setLoadedExam(exam);
             const questions = [];
+
             for (const key in exam.questions) {
                 const question = {
                     id: key,
                     ...exam.questions[key]
                 };
+
                 questions.push(question);
             }
             setLoadedQuestions(questions);
             setIsLoading(false);
         });
+        
     }, [handle]);
 
     const submitHandler = (event) => {

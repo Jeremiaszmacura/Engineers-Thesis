@@ -9,8 +9,23 @@ const convertDateFormatHtmlToDb = (date) => {
 };
 
 
-const generateRundomString = () => {
-    return (Math.random() + 1).toString(36).substring(4);
+// const generateRundomString = () => {
+//     // generate random eight char string
+//     const length = 8;
+//     let randomString = (Math.random() + 1).toString(36).substring(4).substring(0, length)
+//     if length
+//     return (Math.random() + 1).toString(36).substring(4).substring(0, length);
+// };
+
+
+const generateRundomString = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 };
 
 
@@ -46,7 +61,7 @@ const examCreatePost = async (req, res) => {
             startsAt: convertDateFormatHtmlToDb(req.body.startsAt),
             endsAt: convertDateFormatHtmlToDb(req.body.endsAt),
             description: req.body.description,
-            accessCode: generateRundomString(),
+            accessCode: generateRundomString(8),
             userId: user.id 
         });
 
@@ -393,5 +408,7 @@ module.exports = {
     solveExamPost,
     examShowResponsesGet,
     examGeneralReportGet,
-    examGeneralReportPDFGet
+    examGeneralReportPDFGet,
+    convertDateFormatHtmlToDb,
+    generateRundomString
 };

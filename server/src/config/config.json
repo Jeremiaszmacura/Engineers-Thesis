@@ -10,17 +10,17 @@
   "test": {
     "username": "postgres",
     "password": "postgres",
-    "database": "maknowledge_test_db",
+    "database": "maknowledge_development_db",
     "host": "localhost",
-    "port": "54322",
+    "port": "5432",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "postgres",
-    "database": "maknowledge_production_db",
+    "database": "maknowledge_development_db",
     "host": "localhost",
-    "port": "543222",
+    "port": "5432",
     "dialect": "postgres"
   }
 }

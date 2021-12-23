@@ -43,7 +43,7 @@ const MainNavigation = () => {
                         <li>
                                 <Link to='/my-exams'>My Tests</Link>
                             </li>
-                        {!admin ? (
+                        {admin ? (
                             <li>
                                 <Link to='/all-exams'>All Tests</Link>
                             </li>
