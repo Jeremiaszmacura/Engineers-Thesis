@@ -2,6 +2,10 @@ name: Snyk
 
 on: push
 
+defaults:
+  run:
+    working-directory: ./server
+
 jobs:
   security:
     runs-on: ubuntu-latest
