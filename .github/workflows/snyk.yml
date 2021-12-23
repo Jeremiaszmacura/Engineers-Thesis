@@ -2,12 +2,11 @@ name: Snyk
 
 on: push
 
-run: cd ./server
-
 jobs:
   security:
     runs-on: ubuntu-latest
     steps:
+      - run: cd ./server
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
