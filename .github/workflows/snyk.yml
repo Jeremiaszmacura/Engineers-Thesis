@@ -2,9 +2,7 @@ name: Snyk
 
 on: push
 
-defaults:
-  run:
-    working-directory: ./server
+run: cd ./server
 
 jobs:
   security:
