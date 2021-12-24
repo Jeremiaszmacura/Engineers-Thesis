@@ -9,15 +9,6 @@ const convertDateFormatHtmlToDb = (date) => {
 };
 
 
-// const generateRundomString = () => {
-//     // generate random eight char string
-//     const length = 8;
-//     let randomString = (Math.random() + 1).toString(36).substring(4).substring(0, length)
-//     if length
-//     return (Math.random() + 1).toString(36).substring(4).substring(0, length);
-// };
-
-
 const generateRundomString = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
