@@ -1,0 +1,31 @@
+name: Unit Tests
+
+on: push
+  # push:
+    # paths:
+    # - 'server/**'
+
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+        
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get only backend files
+        run: mv ./server/* ./
+
+      - name: Install dependecies
+        run: mv ./server/* ./
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test

@@ -5,6 +5,7 @@ on:
     branches:
       - 'master'
       - 'develop'
+    # containerize only server and build new image only when changes in server direcoty
     paths:
     - 'server/**'
 

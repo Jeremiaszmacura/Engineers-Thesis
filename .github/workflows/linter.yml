@@ -1,6 +1,10 @@
 name: ESLint-backend
 
-on: push
+on:
+  push:
+    # run linter on server only when there are changes in server directory
+    paths:
+    - 'server/**'
 
 jobs:
   lint:
