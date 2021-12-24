@@ -26,8 +26,7 @@ router.post("/create/:uuid", authenticateUser, questionsController.createQuestio
  *      '200':
  *        description: A successful response
  */
- router.delete("/:uuid", authenticateUser, questionsController.deleteQuestionPost);
+router.delete("/:uuid", authenticateUser, questionsController.deleteQuestionPost);
 
- 
- module.exports = router;
- 
+
+module.exports = router;

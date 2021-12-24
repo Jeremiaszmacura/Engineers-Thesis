@@ -38,7 +38,7 @@ router.post("/login", usersController.loginPost);
  *      '200':
  *        description: A successful response
  */
- router.post("/checkIfLoggedIn", authenticateUser, usersController.checkIfLoggedIn);
+router.post("/checkIfLoggedIn", authenticateUser, usersController.checkIfLoggedIn);
 
 
 /**
@@ -50,7 +50,7 @@ router.post("/login", usersController.loginPost);
  *      '200':
  *        description: A successful response
  */
- router.post("/changePassword", authenticateUser, usersController.changePassword);
+router.post("/changePassword", authenticateUser, usersController.changePassword);
 
 
 /**
@@ -62,7 +62,7 @@ router.post("/login", usersController.loginPost);
  *      '200':
  *        description: A successful response
  */
- router.get("/logout", authenticateUser, usersController.logoutGet);
+router.get("/logout", authenticateUser, usersController.logoutGet);
 
 
 /**
@@ -86,7 +86,7 @@ router.get("/allUsers", authenticateUser, usersController.allUsersGet);
  *      '200':
  *        description: A successful response
  */
- router.get("/:uuid", authenticateUser, usersController.UserGet);
+router.get("/:uuid", authenticateUser, usersController.UserGet);
 
 
 /**
@@ -98,10 +98,10 @@ router.get("/allUsers", authenticateUser, usersController.allUsersGet);
  *      '200':
  *        description: A successful response
  */
- router.delete("/:uuid", authenticateUser, usersController.UserDelete);
+router.delete("/:uuid", authenticateUser, usersController.UserDelete);
 
 
- /**
+/**
  * @swagger
  * /users/:uuid':
  *  put:
@@ -110,7 +110,7 @@ router.get("/allUsers", authenticateUser, usersController.allUsersGet);
  *      '200':
  *        description: A successful response
  */
-  router.put("/:uuid", authenticateUser, usersController.UserUpdate);
+router.put("/:uuid", authenticateUser, usersController.UserUpdate);
 
 
 module.exports = router;
