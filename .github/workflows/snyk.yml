@@ -16,7 +16,9 @@ jobs:
 
       - name: Get only backend files
         run: mv ./server/* ./
-        run: rm -r ./server/*
+
+      # - name: Remove all unnecessary files
+      #   run: rm -r ./server/*
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
