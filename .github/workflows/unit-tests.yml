@@ -25,4 +25,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm start
-      - run: npm test
+      - run: npm test examsController.test.js
