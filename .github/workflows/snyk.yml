@@ -6,12 +6,12 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - run: cd server
-      - run: ls -lah
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+       -
+        uses: actions/checkout@v2
         with:
-          path: server
+          files: /server/
+      - 
+        name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
