@@ -14,7 +14,7 @@ const router = express.Router();
  *      '200':
  *        description: A successful response
  */
- router.post("/create/:uuid", authenticateUser, questionsController.createQuestionPost);
+router.post("/create/:uuid", authenticateUser, questionsController.createQuestionPost);
 
 
 /**
