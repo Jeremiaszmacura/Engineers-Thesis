@@ -1,9 +1,10 @@
 name: Unit Tests
 
 on: push
-  # push:
-    # paths:
-    # - 'server/**'
+  push:
+    # run backend unit tests only when there are changes in server directory
+    paths:
+    - 'server/**'
 
 jobs:
   unit-testing:
@@ -25,4 +26,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm start
+      # mocks need to be created, for now test only specific file
       - run: npm test examsController.test.js
