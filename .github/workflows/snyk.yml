@@ -1,12 +1,16 @@
 name: Snyk
 
-on: push
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
 
 jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-       -
+      -
         uses: actions/checkout@v2
         with:
           files: /server/
