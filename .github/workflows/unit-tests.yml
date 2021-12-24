@@ -19,9 +19,6 @@ jobs:
       - name: Get only backend files
         run: mv ./server/* ./
 
-      - name: Install dependecies
-        run: mv ./server/* ./
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
