@@ -5,7 +5,8 @@
 <!-- UL-->
 * ### Backend: Node.js with Express.js
 * ### Frontend: React.js
-* ### Database: PostreSQL (ORM - Sequelize)#### Authentication and authorization: Passport.js
+* ### Database: PostreSQL (ORM - Sequelize)
+* ### Authentication and authorization: Passport.js
 * ### Server API (Swagger URL): /api-docs/#/
 
 <hr>
